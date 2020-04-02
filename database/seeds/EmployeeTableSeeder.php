@@ -28,7 +28,6 @@ class EmployeeTableSeeder extends Seeder
                 'user_id' => $user->id,
                 'firstname' => $faker->firstName($gender = null),
                 'lastname' => $faker->lastName,
-                'company_id' => rand(1, 99),
                 'phone' => $faker->phoneNumber,
             ]);
         }
