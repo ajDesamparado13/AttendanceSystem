@@ -2,14 +2,14 @@
 
 namespace App\Repo\Role;
 
-use App\Model\Role;
-use App\Repo\BaseRepository;
+use Prettus\Repository\Eloquent\BaseRepository;
 
 class RoleRepository extends BaseRepository implements RoleInterface
 {
-    public function __construct(Role $role)
+
+    public function model()
     {
-        $this->modelName = $role;
+        return "App\\Post";
     }
 
     public function index($request)
