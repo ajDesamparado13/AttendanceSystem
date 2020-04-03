@@ -5,12 +5,18 @@
  */
 
 // require("./bootstrap");
-
+import "bootstrap/dist/css/bootstrap.css";
+import "bootstrap-vue/dist/bootstrap-vue.css";
 window.Vue = require("vue");
 window._ = require("lodash");
 import Vuelidate from "vuelidate";
-Vue.use(Vuelidate);
+import { BootstrapVue, IconsPlugin } from "bootstrap-vue";
+
 // Install BootstrapVue
+Vue.use(BootstrapVue);
+// Optionally install the BootstrapVue icon components plugin
+Vue.use(IconsPlugin);
+Vue.use(Vuelidate);
 
 import router from "./router/index.js";
 import store from "./store/index.js";
