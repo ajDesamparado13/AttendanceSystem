@@ -1,7 +1,8 @@
 <template>
   <b-container class="bv-example-row" fluid>
     <b-row align-h="center">
-      <b-col cols="4" id="form">
+      <b-col id="form">
+        <h2 style="text-align:center; margin-bottom: 30px;">LOGIN</h2>
         <b-alert
           :show="error"
           dismissible
@@ -23,7 +24,13 @@
             class="mb-sm-2"
             required
           ></b-input>
+          <br />
+          <b-button variant="secondary" to="/">Cancel</b-button>
           <b-button type="submit" variant="primary">Submit</b-button>
+          <br />
+          <br />
+          <router-link to="/register">Register</router-link>&nbsp;|
+          <router-link to="/forgot-password">Forgot Password</router-link>
         </b-form>
       </b-col>
     </b-row>
@@ -66,7 +73,8 @@ export default {
 
 <style scope>
 #form {
-  margin-top: 200px;
+  max-width: 500px;
+  margin-top: 150px;
   padding: 30px;
   padding-top: 40px;
   border: 1px solid grey;

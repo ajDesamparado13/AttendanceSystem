@@ -1,14 +1,16 @@
 <?php
 
-namespace App\Model;
+namespace App\Entities;
 
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Passport\HasApiTokens;
+use Prettus\Repository\Contracts\Transformable;
+use Prettus\Repository\Traits\TransformableTrait;
 
-class User extends Authenticatable
+class User extends Authenticatable implements Transformable
 {
-    use HasApiTokens, Notifiable;
+    use HasApiTokens, Notifiable, TransformableTrait;
 
     /**
      * The attributes that are mass assignable.
@@ -39,16 +41,12 @@ class User extends Authenticatable
 
     public function AauthAcessToken()
     {
-        return $this->hasMany('App\Model\OauthAccessToken');
+        return $this->hasMany('App\Entities\OauthAccessToken');
     }
 
-    public function company()
-    {
-        return $this->hasOne('App\Model\Company', 'user_id', 'id');
-    }
     public function roles()
     {
-        return $this->belongsToMany('App\Model\Role', 'role_user', 'user_id', 'role_id')->withTimestamps();
+        return $this->belongsToMany('App\Entities\Role', 'role_user', 'user_id', 'role_id')->withTimestamps();
     }
 
 }

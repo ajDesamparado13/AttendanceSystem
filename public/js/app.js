@@ -1979,9 +1979,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({});
 
 /***/ }),
@@ -2912,6 +2909,13 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -43150,7 +43154,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n#form {\r\n  margin-top: 200px;\r\n  padding: 30px;\r\n  padding-top: 40px;\r\n  border: 1px solid grey;\r\n  border-radius: 5px;\n}\r\n", ""]);
+exports.push([module.i, "\n#form {\r\n  max-width: 500px;\r\n  margin-top: 150px;\r\n  padding: 30px;\r\n  padding-top: 40px;\r\n  border: 1px solid grey;\r\n  border-radius: 5px;\n}\r\n", ""]);
 
 // exports
 
@@ -64744,8 +64748,6 @@ var render = function() {
               _vm._v("Attendance System")
             ]),
             _vm._v(" "),
-            _c("b-navbar-toggle", { attrs: { target: "nav-collapse" } }),
-            _vm._v(" "),
             _c("b-button", { attrs: { variant: "success", to: "/login" } }, [
               _vm._v("Login")
             ])
@@ -65605,8 +65607,19 @@ var render = function() {
         [
           _c(
             "b-col",
-            { attrs: { cols: "4", id: "form" } },
+            { attrs: { id: "form" } },
             [
+              _c(
+                "h2",
+                {
+                  staticStyle: {
+                    "text-align": "center",
+                    "margin-bottom": "30px"
+                  }
+                },
+                [_vm._v("LOGIN")]
+              ),
+              _vm._v(" "),
               _c(
                 "b-alert",
                 {
@@ -65660,11 +65673,29 @@ var render = function() {
                     }
                   }),
                   _vm._v(" "),
+                  _c("br"),
+                  _vm._v(" "),
+                  _c("b-button", { attrs: { variant: "secondary", to: "/" } }, [
+                    _vm._v("Cancel")
+                  ]),
+                  _vm._v(" "),
                   _c(
                     "b-button",
                     { attrs: { type: "submit", variant: "primary" } },
                     [_vm._v("Submit")]
-                  )
+                  ),
+                  _vm._v(" "),
+                  _c("br"),
+                  _vm._v(" "),
+                  _c("br"),
+                  _vm._v(" "),
+                  _c("router-link", { attrs: { to: "/register" } }, [
+                    _vm._v("Register")
+                  ]),
+                  _vm._v(" |\n        "),
+                  _c("router-link", { attrs: { to: "/forgot-password" } }, [
+                    _vm._v("Forgot Password")
+                  ])
                 ],
                 1
               )
@@ -84249,7 +84280,7 @@ window.axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js")
 var appMode = function appMode(type) {
   return {
     live: "",
-    test: "http://localhost:8200/api",
+    test: "http://localhost:8000/api",
     local: ""
   }[type];
 };

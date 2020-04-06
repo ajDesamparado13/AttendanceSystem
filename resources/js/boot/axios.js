@@ -2,11 +2,11 @@ import store from "../store/index";
 
 window.axios = require("axios");
 
-const appMode = type =>
+const appMode = (type) =>
     ({
         live: "",
-        test: "http://localhost:8200/api",
-        local: ""
+        test: "http://localhost:8000/api",
+        local: "",
     }[type]);
 
 axios.defaults.baseURL = appMode("test");
@@ -15,14 +15,14 @@ axios.defaults.headers.post["Content-Type"] = "application/json";
 
 export default function setup() {
     axios.interceptors.request.use(
-        function(config) {
+        function (config) {
             const token = store.getters["users/token"];
             if (token) {
                 config.headers.Authorization = `Bearer ${token}`;
             }
             return config;
         },
-        function(err) {
+        function (err) {
             return Promise.reject(err);
         }
     );
