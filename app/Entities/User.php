@@ -48,5 +48,10 @@ class User extends Authenticatable implements Transformable
         return $this->belongsToMany('App\Entities\Role', 'role_user', 'user_id', 'role_id')->withTimestamps();
     }
 
+    public function setPasswordAttribute($value)
+{
+    $this->attributes['password'] = Hash::make($value)
+}
+
 
 }

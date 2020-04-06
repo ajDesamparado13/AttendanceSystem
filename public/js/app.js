@@ -83780,17 +83780,15 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return setup; });
 /* harmony import */ var _store_index__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../store/index */ "./resources/js/store/index.js");
 
-window.axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+window.axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js"); // const appMode = (type) =>
+//     ({
+//         live: "",
+//         test: "http://localhost:8000/api",
+//         local: "",
+//     }[type]);
 
-var appMode = function appMode(type) {
-  return {
-    live: "",
-    test: "http://localhost:8000/api",
-    local: ""
-  }[type];
-};
-
-axios.defaults.baseURL = appMode("test");
+var APP_URL = "http://localhost";
+axios.defaults.baseURL = APP_URL;
 axios.defaults.headers.common["X-Requested-With"] = "XMLHttpRequest";
 axios.defaults.headers.post["Content-Type"] = "application/json";
 function setup() {
