@@ -11,18 +11,7 @@ class MenuController extends Controller
     
     public function index(){
         $roles = Auth::User()->roles->pluck('id');
-        $menus = Menu::whereHas('roles', function($q) use ($roles) {
-            $q->whereIn('role_id', $roles);
-        })
-        ->get()
-        ->map(function($v){
-            return [
-                'name' => $v->name,
-                'path' => $v->path
-            ];
-        })->values()->all();
-
-
+        $menus = Menu::constraintRoles($roles);
         return response()->json([
             'menus' => $menus
         ]);
