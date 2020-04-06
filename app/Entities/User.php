@@ -7,7 +7,6 @@ use Illuminate\Notifications\Notifiable;
 use Laravel\Passport\HasApiTokens;
 use Prettus\Repository\Contracts\Transformable;
 use Prettus\Repository\Traits\TransformableTrait;
-
 class User extends Authenticatable implements Transformable
 {
     use HasApiTokens, Notifiable, TransformableTrait;
@@ -48,5 +47,6 @@ class User extends Authenticatable implements Transformable
     {
         return $this->belongsToMany('App\Entities\Role', 'role_user', 'user_id', 'role_id')->withTimestamps();
     }
+
 
 }

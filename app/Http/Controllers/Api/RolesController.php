@@ -1,41 +1,41 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Api;
 
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use Prettus\Validator\Contracts\ValidatorInterface;
 use Prettus\Validator\Exceptions\ValidatorException;
-use App\Http\Requests\EmployeeCreateRequest;
-use App\Http\Requests\EmployeeUpdateRequest;
-use App\Repositories\EmployeeRepository;
-use App\Validators\EmployeeValidator;
+use App\Http\Requests\RoleCreateRequest;
+use App\Http\Requests\RoleUpdateRequest;
+use App\Repositories\RoleRepository;
+use App\Validators\RoleValidator;
 
 /**
- * Class EmployeesController.
+ * Class RolesController.
  *
  * @package namespace App\Http\Controllers;
  */
-class EmployeesController extends Controller
+class RolesController extends Controller
 {
     /**
-     * @var EmployeeRepository
+     * @var RoleRepository
      */
     protected $repository;
 
     /**
-     * @var EmployeeValidator
+     * @var RoleValidator
      */
     protected $validator;
 
     /**
-     * EmployeesController constructor.
+     * RolesController constructor.
      *
-     * @param EmployeeRepository $repository
-     * @param EmployeeValidator $validator
+     * @param RoleRepository $repository
+     * @param RoleValidator $validator
      */
-    public function __construct(EmployeeRepository $repository, EmployeeValidator $validator)
+    public function __construct(RoleRepository $repository, RoleValidator $validator)
     {
         $this->repository = $repository;
         $this->validator  = $validator;
@@ -49,38 +49,38 @@ class EmployeesController extends Controller
     public function index()
     {
         $this->repository->pushCriteria(app('Prettus\Repository\Criteria\RequestCriteria'));
-        $employees = $this->repository->all();
+        $roles = $this->repository->all();
 
         if (request()->wantsJson()) {
 
             return response()->json([
-                'data' => $employees,
+                'data' => $roles,
             ]);
         }
 
-        return view('employees.index', compact('employees'));
+        return view('roles.index', compact('roles'));
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  EmployeeCreateRequest $request
+     * @param  RoleCreateRequest $request
      *
      * @return \Illuminate\Http\Response
      *
      * @throws \Prettus\Validator\Exceptions\ValidatorException
      */
-    public function store(EmployeeCreateRequest $request)
+    public function store(RoleCreateRequest $request)
     {
         try {
 
             $this->validator->with($request->all())->passesOrFail(ValidatorInterface::RULE_CREATE);
 
-            $employee = $this->repository->create($request->all());
+            $role = $this->repository->create($request->all());
 
             $response = [
-                'message' => 'Employee created.',
-                'data'    => $employee->toArray(),
+                'message' => 'Role created.',
+                'data'    => $role->toArray(),
             ];
 
             if ($request->wantsJson()) {
@@ -110,16 +110,16 @@ class EmployeesController extends Controller
      */
     public function show($id)
     {
-        $employee = $this->repository->find($id);
+        $role = $this->repository->find($id);
 
         if (request()->wantsJson()) {
 
             return response()->json([
-                'data' => $employee,
+                'data' => $role,
             ]);
         }
 
-        return view('employees.show', compact('employee'));
+        return view('roles.show', compact('role'));
     }
 
     /**
@@ -131,32 +131,32 @@ class EmployeesController extends Controller
      */
     public function edit($id)
     {
-        $employee = $this->repository->find($id);
+        $role = $this->repository->find($id);
 
-        return view('employees.edit', compact('employee'));
+        return view('roles.edit', compact('role'));
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  EmployeeUpdateRequest $request
+     * @param  RoleUpdateRequest $request
      * @param  string            $id
      *
      * @return Response
      *
      * @throws \Prettus\Validator\Exceptions\ValidatorException
      */
-    public function update(EmployeeUpdateRequest $request, $id)
+    public function update(RoleUpdateRequest $request, $id)
     {
         try {
 
             $this->validator->with($request->all())->passesOrFail(ValidatorInterface::RULE_UPDATE);
 
-            $employee = $this->repository->update($request->all(), $id);
+            $role = $this->repository->update($request->all(), $id);
 
             $response = [
-                'message' => 'Employee updated.',
-                'data'    => $employee->toArray(),
+                'message' => 'Role updated.',
+                'data'    => $role->toArray(),
             ];
 
             if ($request->wantsJson()) {
@@ -194,11 +194,11 @@ class EmployeesController extends Controller
         if (request()->wantsJson()) {
 
             return response()->json([
-                'message' => 'Employee deleted.',
+                'message' => 'Role deleted.',
                 'deleted' => $deleted,
             ]);
         }
 
-        return redirect()->back()->with('message', 'Employee deleted.');
+        return redirect()->back()->with('message', 'Role deleted.');
     }
 }

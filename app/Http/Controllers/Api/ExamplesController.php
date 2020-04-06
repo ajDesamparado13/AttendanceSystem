@@ -1,41 +1,41 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Api;
 
 use Illuminate\Http\Request;
+
 use App\Http\Requests;
 use Prettus\Validator\Contracts\ValidatorInterface;
 use Prettus\Validator\Exceptions\ValidatorException;
-use App\Http\Requests\UserCreateRequest;
-use App\Http\Requests\UserUpdateRequest;
-use App\Repositories\UserRepository;
-use App\Validators\UserValidator;
-use Hash;
+use App\Http\Requests\ExampleCreateRequest;
+use App\Http\Requests\ExampleUpdateRequest;
+use App\Repositories\ExampleRepository;
+use App\Validators\ExampleValidator;
 
 /**
- * Class UsersController.
+ * Class ExamplesController.
  *
  * @package namespace App\Http\Controllers\Api;
  */
-class UsersController extends Controller
+class ExamplesController extends Controller
 {
     /**
-     * @var UserRepository
+     * @var ExampleRepository
      */
     protected $repository;
 
     /**
-     * @var UserValidator
+     * @var ExampleValidator
      */
     protected $validator;
 
     /**
-     * UsersController constructor.
+     * ExamplesController constructor.
      *
-     * @param UserRepository $repository
-     * @param UserValidator $validator
+     * @param ExampleRepository $repository
+     * @param ExampleValidator $validator
      */
-    public function __construct(UserRepository $repository, UserValidator $validator)
+    public function __construct(ExampleRepository $repository, ExampleValidator $validator)
     {
         $this->repository = $repository;
         $this->validator  = $validator;
@@ -49,39 +49,38 @@ class UsersController extends Controller
     public function index()
     {
         $this->repository->pushCriteria(app('Prettus\Repository\Criteria\RequestCriteria'));
-        $users = $this->repository->all();
+        $examples = $this->repository->all();
 
         if (request()->wantsJson()) {
 
             return response()->json([
-                'data' => $users,
+                'data' => $examples,
             ]);
         }
 
-        return view('users.index', compact('users'));
+        return view('examples.index', compact('examples'));
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  UserCreateRequest $request
+     * @param  ExampleCreateRequest $request
      *
      * @return \Illuminate\Http\Response
      *
      * @throws \Prettus\Validator\Exceptions\ValidatorException
      */
-    public function store(UserCreateRequest $request)
+    public function store(ExampleCreateRequest $request)
     {
         try {
 
-            $newRequest = $request->all();
-            $newRequest['password'] = Hash::make($request->password);
+            $this->validator->with($request->all())->passesOrFail(ValidatorInterface::RULE_CREATE);
 
-            $user = $this->repository->create($newRequest);
+            $example = $this->repository->create($request->all());
 
             $response = [
-                'message' => 'User created.',
-                'data'    => $user->toArray(),
+                'message' => 'Example created.',
+                'data'    => $example->toArray(),
             ];
 
             if ($request->wantsJson()) {
@@ -111,16 +110,16 @@ class UsersController extends Controller
      */
     public function show($id)
     {
-        $user = $this->repository->find($id);
+        $example = $this->repository->find($id);
 
         if (request()->wantsJson()) {
 
             return response()->json([
-                'data' => $user,
+                'data' => $example,
             ]);
         }
 
-        return view('users.show', compact('user'));
+        return view('examples.show', compact('example'));
     }
 
     /**
@@ -132,32 +131,32 @@ class UsersController extends Controller
      */
     public function edit($id)
     {
-        $user = $this->repository->find($id);
+        $example = $this->repository->find($id);
 
-        return view('users.edit', compact('user'));
+        return view('examples.edit', compact('example'));
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  UserUpdateRequest $request
+     * @param  ExampleUpdateRequest $request
      * @param  string            $id
      *
      * @return Response
      *
      * @throws \Prettus\Validator\Exceptions\ValidatorException
      */
-    public function update(UserUpdateRequest $request, $id)
+    public function update(ExampleUpdateRequest $request, $id)
     {
         try {
 
             $this->validator->with($request->all())->passesOrFail(ValidatorInterface::RULE_UPDATE);
 
-            $user = $this->repository->update($request->all(), $id);
+            $example = $this->repository->update($request->all(), $id);
 
             $response = [
-                'message' => 'User updated.',
-                'data'    => $user->toArray(),
+                'message' => 'Example updated.',
+                'data'    => $example->toArray(),
             ];
 
             if ($request->wantsJson()) {
@@ -195,11 +194,11 @@ class UsersController extends Controller
         if (request()->wantsJson()) {
 
             return response()->json([
-                'message' => 'User deleted.',
+                'message' => 'Example deleted.',
                 'deleted' => $deleted,
             ]);
         }
 
-        return redirect()->back()->with('message', 'User deleted.');
+        return redirect()->back()->with('message', 'Example deleted.');
     }
 }

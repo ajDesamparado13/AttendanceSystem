@@ -47,6 +47,7 @@ class LoginController extends Controller
             return $this->success('email', $request->email);
         } else {
             return response()->json(['error' => 'Invalid Username or Password.'], 401);
+            return 'asdf';
         }
     }
 

@@ -14,7 +14,7 @@ class EmployeeTableSeeder extends Seeder
     public function run()
     {
         $faker = Faker\Factory::create();
-        for ($i = 0; $i < 100; $i++) {
+        for ($i = 0; $i < 3; $i++) {
             $user = User::create([
                 'email' => $faker->safeEmail,
                 'password' => Hash::make(str_random(6)),
