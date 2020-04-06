@@ -1,7 +1,7 @@
 <?php
 
 Route::post('login', 'Auth\LoginController@login');
-Route::post('users', 'UsersController@store');
+Route::post('add_user', 'UsersController@store');
 Route::group(['middleware' => 'auth:api'], function () {
     Route::post('logout', 'Auth\LoginController@logout');
     Route::resource('users', 'UsersController');
@@ -10,4 +10,5 @@ Route::group(['middleware' => 'auth:api'], function () {
     Route::resource('employees', 'Api\Employee\EmployeeController');
     Route::resource('employees_companies', 'Api\Employee\CompanyController');
     Route::resource('employees_roles', 'Api\Employee\RoleController');
+    Route::get('dashboard_menus', 'Api\Dashboard\MenuController@index');
 });

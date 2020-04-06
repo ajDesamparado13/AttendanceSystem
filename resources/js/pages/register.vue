@@ -7,7 +7,7 @@
           style="text-align:center"
           :show="error"
           dismissible
-          variant="danger"
+          :variant="variant"
           @dismissed="error=false"
         >{{ errorMessage }}</b-alert>
         <b-form @submit="onSubmit">
@@ -33,6 +33,7 @@ import { mapActions } from "vuex";
 export default {
   data() {
     return {
+      variant: "danger",
       error: false,
       errorMessage: null,
       email: "",
@@ -44,18 +45,20 @@ export default {
     onSubmit(evt) {
       evt.preventDefault();
       axios
-        .post("users", {
+        .post("add_user", {
           email: this.email,
           password: this.password
         })
         .then(res => {
-          //   var token = res.data.success.token;
-          //   this.setToken(token);
-          //   this.setUser(res.data.user);
-          //   this.$router.push("/user/dashboard");
+          this.email = "";
+          this.password = "";
+          this.variant = "success";
+          this.errorMessage = "You have successfully registered.";
+          this.error = true;
         })
         .catch(err => {
           this.error = true;
+          this.variant = "danger";
           this.errorMessage = "Email address is already taken.";
           console.log(err.response.data);
         });

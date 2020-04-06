@@ -23,4 +23,8 @@ class Role extends Model implements Transformable
     {
         return $this->id;
     }
+    public function menus()
+    {
+        return $this->belongsToMany('App\Entities\Menu', 'menu_role', 'role_id', 'menu_id')->withTimestamps();
+    }
 }

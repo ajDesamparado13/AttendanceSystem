@@ -1,6 +1,7 @@
 export default {
     token: null,
     user: {
-        company: null
-    }
+        company: null,
+    },
+    menus: [],
 };

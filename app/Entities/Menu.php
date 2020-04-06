@@ -20,6 +20,21 @@ class Menu extends Model implements Transformable
      *
      * @var array
      */
-    protected $fillable = [];
+    protected $table = 'menus';
+    protected $fillable = [
+        'name'
+    ];
+
+    protected $appends = ['path'];
+
+    public function roles()
+    {
+        return $this->belongsToMany('App\Entities\Role')->withTimestamps();
+    }
+
+    public function getPathAttribute(){
+
+        return '/dashboard/'. str_slug($this->name, '-');
+    }
 
 }

@@ -15,7 +15,7 @@ use Hash;
 /**
  * Class UsersController.
  *
- * @package namespace App\Http\Controllers\Api;
+ * @package namespace App\Http\Controllers;
  */
 class UsersController extends Controller
 {

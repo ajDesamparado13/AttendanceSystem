@@ -1936,12 +1936,10 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapState"])("users", ["user"])),
-  methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapActions"])("users", ["setToken"]), {
+  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapState"])("users", ["user", "menus"])),
+  methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapActions"])("users", ["setToken", "setMenus"]), {
     logout: function logout() {
       var _this = this;
 
@@ -1952,8 +1950,18 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
           path: "/"
         });
       });
+    },
+    getMenus: function getMenus() {
+      var _this2 = this;
+
+      axios.get("dashboard_menus").then(function (res) {
+        _this2.setMenus(res.data.menus);
+      });
     }
-  })
+  }),
+  mounted: function mounted() {
+    this.getMenus();
+  }
 });
 
 /***/ }),
@@ -2655,6 +2663,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
+      variant: "danger",
       error: false,
       errorMessage: null,
       email: "",
@@ -2666,15 +2675,18 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       var _this = this;
 
       evt.preventDefault();
-      axios.post("users", {
+      axios.post("add_user", {
         email: this.email,
         password: this.password
-      }).then(function (res) {//   var token = res.data.success.token;
-        //   this.setToken(token);
-        //   this.setUser(res.data.user);
-        //   this.$router.push("/user/dashboard");
+      }).then(function (res) {
+        _this.email = "";
+        _this.password = "";
+        _this.variant = "success";
+        _this.errorMessage = "You have successfully registered.";
+        _this.error = true;
       })["catch"](function (err) {
         _this.error = true;
+        _this.variant = "danger";
         _this.errorMessage = "Email address is already taken.";
         console.log(err.response.data);
       });
@@ -64441,23 +64453,13 @@ var render = function() {
         [
           _c(
             "b-list-group",
-            [
-              _c("b-list-group-item", { attrs: { to: "/dashboard/roles" } }, [
-                _vm._v("Roles")
-              ]),
-              _vm._v(" "),
-              _c(
+            _vm._l(_vm.menus, function(v, i) {
+              return _c(
                 "b-list-group-item",
-                { attrs: { to: "/dashboard/companies" } },
-                [_vm._v("Companies")]
-              ),
-              _vm._v(" "),
-              _c(
-                "b-list-group-item",
-                { attrs: { to: "/dashboard/employees" } },
-                [_vm._v("Employees")]
+                { key: i, attrs: { to: v.path } },
+                [_vm._v(_vm._s(v.name))]
               )
-            ],
+            }),
             1
           )
         ],
@@ -65139,7 +65141,7 @@ var render = function() {
                   attrs: {
                     show: _vm.error,
                     dismissible: "",
-                    variant: "danger"
+                    variant: _vm.variant
                   },
                   on: {
                     dismissed: function($event) {
@@ -85280,13 +85282,14 @@ __webpack_require__.r(__webpack_exports__);
 /*!*********************************************!*\
   !*** ./resources/js/store/users/actions.js ***!
   \*********************************************/
-/*! exports provided: setToken, setUser */
+/*! exports provided: setToken, setUser, setMenus */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "setToken", function() { return setToken; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "setUser", function() { return setUser; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "setMenus", function() { return setMenus; });
 var setToken = function setToken(_ref, payload) {
   var commit = _ref.commit;
   commit("setToken", payload);
@@ -85295,6 +85298,10 @@ var setUser = function setUser(_ref2, payload) {
   var commit = _ref2.commit;
   commit("setUser", payload);
 };
+var setMenus = function setMenus(_ref3, payload) {
+  var commit = _ref3.commit;
+  commit("setMenus", payload);
+};
 
 /***/ }),
 
@@ -85302,18 +85309,22 @@ var setUser = function setUser(_ref2, payload) {
 /*!*********************************************!*\
   !*** ./resources/js/store/users/getters.js ***!
   \*********************************************/
-/*! exports provided: token, user */
+/*! exports provided: token, user, menus */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "token", function() { return token; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "user", function() { return user; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "menus", function() { return menus; });
 var token = function token(state) {
   return state.token;
 };
 var user = function user(state) {
   return state.user;
+};
+var menus = function menus(state) {
+  return state.menus;
 };
 
 /***/ }),
@@ -85349,18 +85360,22 @@ __webpack_require__.r(__webpack_exports__);
 /*!***********************************************!*\
   !*** ./resources/js/store/users/mutations.js ***!
   \***********************************************/
-/*! exports provided: setToken, setUser */
+/*! exports provided: setToken, setUser, setMenus */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "setToken", function() { return setToken; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "setUser", function() { return setUser; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "setMenus", function() { return setMenus; });
 var setToken = function setToken(state, payload) {
   state.token = payload;
 };
 var setUser = function setUser(state, payload) {
   state.user = payload;
+};
+var setMenus = function setMenus(state, payload) {
+  state.menus = payload;
 };
 
 /***/ }),
@@ -85378,7 +85393,8 @@ __webpack_require__.r(__webpack_exports__);
   token: null,
   user: {
     company: null
-  }
+  },
+  menus: []
 });
 
 /***/ }),
