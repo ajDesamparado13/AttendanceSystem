@@ -1936,6 +1936,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapState"])("users", ["user"])),
@@ -64410,39 +64412,21 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c("div", [
     _c(
-      "p",
-      [
-        _vm._v("\n    Welcome to Dashboard\n    "),
-        _c(
-          "b-button",
-          {
-            attrs: { pill: "", variant: "outline-danger" },
-            on: { click: _vm.logout }
-          },
-          [_vm._v("Logout")]
-        )
-      ],
-      1
-    ),
-    _vm._v(" "),
-    _c(
-      "div",
-      { staticStyle: { float: "left" } },
+      "header",
       [
         _c(
-          "b-list-group",
+          "b-navbar",
+          { attrs: { toggleable: "lg", type: "dark", variant: "info" } },
           [
-            _c("b-list-group-item", { attrs: { to: "/dashboard/roles" } }, [
-              _vm._v("Roles")
+            _c("b-navbar-brand", { attrs: { href: "/" } }, [
+              _vm._v("Attendance System")
             ]),
             _vm._v(" "),
-            _c("b-list-group-item", { attrs: { to: "/dashboard/companies" } }, [
-              _vm._v("Companies")
-            ]),
-            _vm._v(" "),
-            _c("b-list-group-item", { attrs: { to: "/dashboard/employees" } }, [
-              _vm._v("Employees")
-            ])
+            _c(
+              "b-button",
+              { attrs: { variant: "danger" }, on: { click: _vm.logout } },
+              [_vm._v("Logout")]
+            )
           ],
           1
         )
@@ -64450,16 +64434,43 @@ var render = function() {
       1
     ),
     _vm._v(" "),
-    _c(
-      "div",
-      { staticStyle: { float: "left", "padding-left": "10px" } },
-      [_c("router-view")],
-      1
-    ),
-    _vm._v(" "),
-    _c("div", { staticStyle: { clear: "both" } }),
-    _vm._v(" "),
-    _c("p", [_vm._v("Footer")])
+    _c("div", [
+      _c(
+        "div",
+        { staticStyle: { float: "left" } },
+        [
+          _c(
+            "b-list-group",
+            [
+              _c("b-list-group-item", { attrs: { to: "/dashboard/roles" } }, [
+                _vm._v("Roles")
+              ]),
+              _vm._v(" "),
+              _c(
+                "b-list-group-item",
+                { attrs: { to: "/dashboard/companies" } },
+                [_vm._v("Companies")]
+              ),
+              _vm._v(" "),
+              _c(
+                "b-list-group-item",
+                { attrs: { to: "/dashboard/employees" } },
+                [_vm._v("Employees")]
+              )
+            ],
+            1
+          )
+        ],
+        1
+      ),
+      _vm._v(" "),
+      _c(
+        "div",
+        { staticStyle: { float: "left", "padding-left": "10px" } },
+        [_c("router-view")],
+        1
+      )
+    ])
   ])
 }
 var staticRenderFns = []

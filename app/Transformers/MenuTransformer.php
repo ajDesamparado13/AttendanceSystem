@@ -3,23 +3,23 @@
 namespace App\Transformers;
 
 use League\Fractal\TransformerAbstract;
-use App\Entities\Post;
+use App\Entities\Menu;
 
 /**
- * Class PostTransformer.
+ * Class MenuTransformer.
  *
  * @package namespace App\Transformers;
  */
-class PostTransformer extends TransformerAbstract
+class MenuTransformer extends TransformerAbstract
 {
     /**
-     * Transform the Post entity.
+     * Transform the Menu entity.
      *
-     * @param \App\Entities\Post $model
+     * @param \App\Entities\Menu $model
      *
      * @return array
      */
-    public function transform(Post $model)
+    public function transform(Menu $model)
     {
         return [
             'id'         => (int) $model->id,

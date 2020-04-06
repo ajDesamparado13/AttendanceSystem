@@ -7,35 +7,35 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use Prettus\Validator\Contracts\ValidatorInterface;
 use Prettus\Validator\Exceptions\ValidatorException;
-use App\Http\Requests\PostCreateRequest;
-use App\Http\Requests\PostUpdateRequest;
-use App\Repositories\PostRepository;
-use App\Validators\PostValidator;
+use App\Http\Requests\MenuCreateRequest;
+use App\Http\Requests\MenuUpdateRequest;
+use App\Repositories\MenuRepository;
+use App\Validators\MenuValidator;
 
 /**
- * Class PostsController.
+ * Class MenusController.
  *
- * @package namespace App\Http\Controllers;
+ * @package namespace App\Http\Controllers\Api;
  */
-class PostsController extends Controller
+class MenusController extends Controller
 {
     /**
-     * @var PostRepository
+     * @var MenuRepository
      */
     protected $repository;
 
     /**
-     * @var PostValidator
+     * @var MenuValidator
      */
     protected $validator;
 
     /**
-     * PostsController constructor.
+     * MenusController constructor.
      *
-     * @param PostRepository $repository
-     * @param PostValidator $validator
+     * @param MenuRepository $repository
+     * @param MenuValidator $validator
      */
-    public function __construct(PostRepository $repository, PostValidator $validator)
+    public function __construct(MenuRepository $repository, MenuValidator $validator)
     {
         $this->repository = $repository;
         $this->validator  = $validator;
@@ -49,38 +49,38 @@ class PostsController extends Controller
     public function index()
     {
         $this->repository->pushCriteria(app('Prettus\Repository\Criteria\RequestCriteria'));
-        $posts = $this->repository->all();
+        $menus = $this->repository->all();
 
         if (request()->wantsJson()) {
 
             return response()->json([
-                'data' => $posts,
+                'data' => $menus,
             ]);
         }
 
-        return view('posts.index', compact('posts'));
+        return view('menus.index', compact('menus'));
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  PostCreateRequest $request
+     * @param  MenuCreateRequest $request
      *
      * @return \Illuminate\Http\Response
      *
      * @throws \Prettus\Validator\Exceptions\ValidatorException
      */
-    public function store(PostCreateRequest $request)
+    public function store(MenuCreateRequest $request)
     {
         try {
 
             $this->validator->with($request->all())->passesOrFail(ValidatorInterface::RULE_CREATE);
 
-            $post = $this->repository->create($request->all());
+            $menu = $this->repository->create($request->all());
 
             $response = [
-                'message' => 'Post created.',
-                'data'    => $post->toArray(),
+                'message' => 'Menu created.',
+                'data'    => $menu->toArray(),
             ];
 
             if ($request->wantsJson()) {
@@ -110,16 +110,16 @@ class PostsController extends Controller
      */
     public function show($id)
     {
-        $post = $this->repository->find($id);
+        $menu = $this->repository->find($id);
 
         if (request()->wantsJson()) {
 
             return response()->json([
-                'data' => $post,
+                'data' => $menu,
             ]);
         }
 
-        return view('posts.show', compact('post'));
+        return view('menus.show', compact('menu'));
     }
 
     /**
@@ -131,32 +131,32 @@ class PostsController extends Controller
      */
     public function edit($id)
     {
-        $post = $this->repository->find($id);
+        $menu = $this->repository->find($id);
 
-        return view('posts.edit', compact('post'));
+        return view('menus.edit', compact('menu'));
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  PostUpdateRequest $request
+     * @param  MenuUpdateRequest $request
      * @param  string            $id
      *
      * @return Response
      *
      * @throws \Prettus\Validator\Exceptions\ValidatorException
      */
-    public function update(PostUpdateRequest $request, $id)
+    public function update(MenuUpdateRequest $request, $id)
     {
         try {
 
             $this->validator->with($request->all())->passesOrFail(ValidatorInterface::RULE_UPDATE);
 
-            $post = $this->repository->update($request->all(), $id);
+            $menu = $this->repository->update($request->all(), $id);
 
             $response = [
-                'message' => 'Post updated.',
-                'data'    => $post->toArray(),
+                'message' => 'Menu updated.',
+                'data'    => $menu->toArray(),
             ];
 
             if ($request->wantsJson()) {
@@ -194,11 +194,11 @@ class PostsController extends Controller
         if (request()->wantsJson()) {
 
             return response()->json([
-                'message' => 'Post deleted.',
+                'message' => 'Menu deleted.',
                 'deleted' => $deleted,
             ]);
         }
 
-        return redirect()->back()->with('message', 'Post deleted.');
+        return redirect()->back()->with('message', 'Menu deleted.');
     }
 }

@@ -2,15 +2,15 @@
 
 namespace App\Presenters;
 
-use App\Transformers\PostTransformer;
+use App\Transformers\MenuTransformer;
 use Prettus\Repository\Presenter\FractalPresenter;
 
 /**
- * Class PostPresenter.
+ * Class MenuPresenter.
  *
  * @package namespace App\Presenters;
  */
-class PostPresenter extends FractalPresenter
+class MenuPresenter extends FractalPresenter
 {
     /**
      * Transformer
@@ -19,6 +19,6 @@ class PostPresenter extends FractalPresenter
      */
     public function getTransformer()
     {
-        return new PostTransformer();
+        return new MenuTransformer();
     }
 }

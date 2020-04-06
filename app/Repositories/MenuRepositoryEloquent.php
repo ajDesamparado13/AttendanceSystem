@@ -4,16 +4,16 @@ namespace App\Repositories;
 
 use Prettus\Repository\Eloquent\BaseRepository;
 use Prettus\Repository\Criteria\RequestCriteria;
-use App\Repositories\PostRepository;
-use App\Entities\Post;
-use App\Validators\PostValidator;
+use App\Repositories\MenuRepository;
+use App\Entities\Menu;
+use App\Validators\MenuValidator;
 
 /**
- * Class PostRepositoryEloquent.
+ * Class MenuRepositoryEloquent.
  *
  * @package namespace App\Repositories;
  */
-class PostRepositoryEloquent extends BaseRepository implements PostRepository
+class MenuRepositoryEloquent extends BaseRepository implements MenuRepository
 {
     /**
      * Specify Model class name
@@ -22,20 +22,10 @@ class PostRepositoryEloquent extends BaseRepository implements PostRepository
      */
     public function model()
     {
-        return Post::class;
+        return Menu::class;
     }
 
-    /**
-    * Specify Validator class name
-    *
-    * @return mixed
-    */
-    public function validator()
-    {
-
-        return PostValidator::class;
-    }
-
+    
 
     /**
      * Boot up the repository, pushing criteria

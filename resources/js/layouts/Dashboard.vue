@@ -1,21 +1,23 @@
 <template>
   <div>
-    <p>
-      Welcome to Dashboard
-      <b-button pill variant="outline-danger" @click="logout">Logout</b-button>
-    </p>
-    <div style="float: left">
-      <b-list-group>
-        <b-list-group-item to="/dashboard/roles">Roles</b-list-group-item>
-        <b-list-group-item to="/dashboard/companies">Companies</b-list-group-item>
-        <b-list-group-item to="/dashboard/employees">Employees</b-list-group-item>
-      </b-list-group>
+    <header>
+      <b-navbar toggleable="lg" type="dark" variant="info">
+        <b-navbar-brand href="/">Attendance System</b-navbar-brand>
+        <b-button variant="danger" @click="logout">Logout</b-button>
+      </b-navbar>
+    </header>
+    <div>
+      <div style="float: left">
+        <b-list-group>
+          <b-list-group-item to="/dashboard/roles">Roles</b-list-group-item>
+          <b-list-group-item to="/dashboard/companies">Companies</b-list-group-item>
+          <b-list-group-item to="/dashboard/employees">Employees</b-list-group-item>
+        </b-list-group>
+      </div>
+      <div style="float: left; padding-left: 10px;">
+        <router-view></router-view>
+      </div>
     </div>
-    <div style="float: left; padding-left: 10px;">
-      <router-view></router-view>
-    </div>
-    <div style="clear:both"></div>
-    <p>Footer</p>
   </div>
 </template>
 
