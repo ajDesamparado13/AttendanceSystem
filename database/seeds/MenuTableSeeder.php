@@ -1,7 +1,7 @@
 <?php
 
-use Illuminate\Database\Seeder;
 use App\Entities\Menu;
+use Illuminate\Database\Seeder;
 
 class MenuTableSeeder extends Seeder
 {
@@ -13,12 +13,12 @@ class MenuTableSeeder extends Seeder
     public function run()
     {
         $menus = [
-            'Users', 'Roles', 'Employees', 'Machines', 'Timelogs'
+            'Users', 'Timelogs',
         ];
 
-        foreach($menus as $menu){
+        foreach ($menus as $menu) {
             Menu::create([
-                'name' => $menu
+                'name' => $menu,
             ]);
         }
     }

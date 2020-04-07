@@ -2,42 +2,43 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\UserCreateRequest;
-use App\Http\Requests\UserUpdateRequest;
-use App\Repositories\EmployeeRepository;
-use App\Repositories\UserRepository;
-use App\Validators\UserValidator;
 use Illuminate\Http\Request;
+
+use App\Http\Requests;
+use Prettus\Validator\Contracts\ValidatorInterface;
 use Prettus\Validator\Exceptions\ValidatorException;
+use App\Http\Requests\TimelogCreateRequest;
+use App\Http\Requests\TimelogUpdateRequest;
+use App\Repositories\TimelogRepository;
+use App\Validators\TimelogValidator;
 
 /**
- * Class UsersController.
+ * Class TimelogsController.
  *
  * @package namespace App\Http\Controllers;
  */
-class UsersController extends Controller
+class TimelogsController extends Controller
 {
     /**
-     * @var UserRepository
+     * @var TimelogRepository
      */
     protected $repository;
-    protected $employee;
+
     /**
-     * @var UserValidator
+     * @var TimelogValidator
      */
     protected $validator;
 
     /**
-     * UsersController constructor.
+     * TimelogsController constructor.
      *
-     * @param UserRepository $repository
-     * @param UserValidator $validator
+     * @param TimelogRepository $repository
+     * @param TimelogValidator $validator
      */
-    public function __construct(EmployeeRepository $employee, UserRepository $repository, UserValidator $validator)
+    public function __construct(TimelogRepository $repository, TimelogValidator $validator)
     {
-        $this->employee = $employee;
         $this->repository = $repository;
-        $this->validator = $validator;
+        $this->validator  = $validator;
     }
 
     /**
@@ -47,44 +48,39 @@ class UsersController extends Controller
      */
     public function index()
     {
-        $request = app()->make('request');
         $this->repository->pushCriteria(app('Prettus\Repository\Criteria\RequestCriteria'));
-        $users = $this->repository->with(['employee'])
-            ->paginate($limit = $request->limit, $columns = ['*']);
+        $timelogs = $this->repository->all();
 
         if (request()->wantsJson()) {
 
             return response()->json([
-                'data' => $users,
+                'data' => $timelogs,
             ]);
         }
 
-        return view('users.index', compact('users'));
+        return view('timelogs.index', compact('timelogs'));
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  UserCreateRequest $request
+     * @param  TimelogCreateRequest $request
      *
      * @return \Illuminate\Http\Response
      *
      * @throws \Prettus\Validator\Exceptions\ValidatorException
      */
-    public function store(UserCreateRequest $request)
+    public function store(TimelogCreateRequest $request)
     {
         try {
 
-            $user = $this->repository->create($request->all());
-            $user = $this->repository->where('id', $user->id)->first();
-            $user->roles()->attach($user->id, [
-                'user_id' => $user->id,
-                'role_id' => 2,
-            ]);
-            $user->employee()->create($request->all());
+            $this->validator->with($request->all())->passesOrFail(ValidatorInterface::RULE_CREATE);
+
+            $timelog = $this->repository->create($request->all());
+
             $response = [
-                'message' => 'User created.',
-                'data' => $user->toArray(),
+                'message' => 'Timelog created.',
+                'data'    => $timelog->toArray(),
             ];
 
             if ($request->wantsJson()) {
@@ -96,8 +92,8 @@ class UsersController extends Controller
         } catch (ValidatorException $e) {
             if ($request->wantsJson()) {
                 return response()->json([
-                    'error' => true,
-                    'message' => $e->getMessageBag(),
+                    'error'   => true,
+                    'message' => $e->getMessageBag()
                 ]);
             }
 
@@ -114,16 +110,16 @@ class UsersController extends Controller
      */
     public function show($id)
     {
-        $user = $this->repository->find($id);
+        $timelog = $this->repository->find($id);
 
         if (request()->wantsJson()) {
 
             return response()->json([
-                'data' => $user,
+                'data' => $timelog,
             ]);
         }
 
-        return view('users.show', compact('user'));
+        return view('timelogs.show', compact('timelog'));
     }
 
     /**
@@ -135,43 +131,32 @@ class UsersController extends Controller
      */
     public function edit($id)
     {
-        $user = $this->repository->where('id', $id)->with(['roles'])->first();
-        if (request()->wantsJson()) {
+        $timelog = $this->repository->find($id);
 
-            return response()->json([
-                'user' => $user,
-                'roles' => $user->roles->pluck('id'),
-            ]);
-        }
-
-        return view('users.edit', compact('user'));
+        return view('timelogs.edit', compact('timelog'));
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  UserUpdateRequest $request
+     * @param  TimelogUpdateRequest $request
      * @param  string            $id
      *
      * @return Response
      *
      * @throws \Prettus\Validator\Exceptions\ValidatorException
      */
-    public function update(UserUpdateRequest $request, $id)
+    public function update(TimelogUpdateRequest $request, $id)
     {
         try {
 
-            $user = $this->repository->update($request->all(), $id);
-            $employee = $this->employee->where('user_id', $user->id)->update([
-                'firstname' => $request->employee['firstname'],
-                'lastname' => $request->employee['lastname'],
-            ]);
-            $user = $this->repository->where('id', $id)->first();
-            $user->roles()->sync($request->roleIds);
+            $this->validator->with($request->all())->passesOrFail(ValidatorInterface::RULE_UPDATE);
+
+            $timelog = $this->repository->update($request->all(), $id);
 
             $response = [
-                'message' => 'User updated.',
-                'data' => $user->toArray(),
+                'message' => 'Timelog updated.',
+                'data'    => $timelog->toArray(),
             ];
 
             if ($request->wantsJson()) {
@@ -185,14 +170,15 @@ class UsersController extends Controller
             if ($request->wantsJson()) {
 
                 return response()->json([
-                    'error' => true,
-                    'message' => $e->getMessageBag(),
+                    'error'   => true,
+                    'message' => $e->getMessageBag()
                 ]);
             }
 
             return redirect()->back()->withErrors($e->getMessageBag())->withInput();
         }
     }
+
 
     /**
      * Remove the specified resource from storage.
@@ -208,11 +194,11 @@ class UsersController extends Controller
         if (request()->wantsJson()) {
 
             return response()->json([
-                'message' => 'User deleted.',
+                'message' => 'Timelog deleted.',
                 'deleted' => $deleted,
             ]);
         }
 
-        return redirect()->back()->with('message', 'User deleted.');
+        return redirect()->back()->with('message', 'Timelog deleted.');
     }
 }

@@ -19,7 +19,7 @@ class User extends Authenticatable implements Transformable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'email', 'password',
     ];
 
     /**
@@ -40,9 +40,27 @@ class User extends Authenticatable implements Transformable
         'email_verified_at' => 'datetime',
     ];
 
+    protected $appends = [
+        'employeeName',
+    ];
+
+    public static function boot()
+    {
+        parent::boot();
+        static::deleting(function ($user) {
+            $user->employee()->delete();
+            $user->roles()->detach();
+        });
+    }
+
     public function AauthAcessToken()
     {
         return $this->hasMany('App\Entities\OauthAccessToken');
+    }
+
+    public function employee()
+    {
+        return $this->hasOne('App\Entities\Employee', 'user_id', 'id');
     }
 
     public function roles()
@@ -60,6 +78,14 @@ class User extends Authenticatable implements Transformable
             return $this->attributes['password'] = $value;
         }
         $this->attributes['password'] = Hash::make($value);
+    }
+
+    public function getEmployeeNameAttribute()
+    {
+        if (is_object($this->employee)) {
+            return $this->employee->lastname . ', ' . $this->employee->firstname;
+        }
+
     }
 
 }
