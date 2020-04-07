@@ -1,13 +1,12 @@
 <template>
-  <div style="padding-left: 20px;">
+  <div style="padding-left: 20px; margin-top: 10px; ">
     <b-form-input
       v-model="filter"
-      placeholder="Search role name... "
+      placeholder="Search email... "
       style="margin-bottom: 5px;"
       debounce="500"
     ></b-form-input>
-    <b-button variant="primary" style="margin-bottom: 5px;" @click="add">Add Role</b-button>
-    <b-table striped hover :items="roles" small :fields="fields">
+    <b-table striped hover :items="users" small :fields="fields">
       <template v-slot:cell(action)="data">
         <b-button variant="info" style="margin-bottom: 5px;" @click="edit(`${data.item.id}`)">Edit</b-button>
         <b-button
@@ -22,7 +21,11 @@
       v-model="currentPage"
       :total-rows="rows"
       :per-page="perPage"
-      aria-controls="my-table"
+      first-text="⏮"
+      prev-text="⏪"
+      next-text="⏩"
+      last-text="⏭"
+      class="mt-4"
     ></b-pagination>
   </div>
 </template>
@@ -34,33 +37,24 @@ export default {
     return {
       filter: "",
       fields: [
-        { key: "name", label: "Name" },
-        { key: "desc", label: "Description" },
+        { key: "employeeName", label: "Name" },
+        { key: "email", label: "Email" },
         { key: "action", label: "Actions" }
       ],
       page: 1,
+      rows: 10,
       perPage: 10,
       currentPage: 1,
-      rows: 0,
-      roles: []
+      users: []
     };
   },
   methods: {
-    ...mapActions("roles", ["setRole"]),
-    add() {
-      this.setRole({
-        name: "",
-        desc: ""
-      });
-      this.$router.push({
-        path: "/roles/create"
-      });
-    },
+    ...mapActions("users", ["setUser"]),
     edit(id) {
-      axios.get(`roles/${id}/edit`).then(res => {
-        this.setRole(res.data.role);
+      axios.get(`users/${id}/edit`).then(res => {
+        this.setUser(res.data.data);
         this.$router.push({
-          path: `/roles/${id}/edit`
+          path: `/users/${id}/edit`
         });
       });
     },
@@ -72,26 +66,26 @@ export default {
         });
       });
     },
-    getCompanies() {
+    getUsers() {
       axios
         .get(
-          `roles?page=${this.currentPage}&perPage=${this.perPage}&filter=${this.filter}`
+          `users?search=${this.filter}&page=${this.currentPage}&limit=${this.perPage}`
         )
         .then(res => {
-          this.roles = _.values(res.data.roles.data);
-          this.rows = res.data.roles.total;
+          this.users = _.values(res.data.data.data);
+          this.rows = res.data.data.total;
         });
     }
   },
   mounted() {
-    this.getCompanies();
+    this.getUsers();
   },
   watch: {
     currentPage() {
-      this.getCompanies();
+      this.getUsers();
     },
     filter() {
-      this.getCompanies();
+      this.getUsers();
     }
   }
 };

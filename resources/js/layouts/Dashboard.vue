@@ -6,16 +6,18 @@
         <b-button variant="danger" @click="logout">Logout</b-button>
       </b-navbar>
     </header>
-    <div>
-      <div style="float: left">
-        <b-list-group>
-          <b-list-group-item :to="v.path" v-for="(v, i) in menus" :key="i">{{ v.name }}</b-list-group-item>
-        </b-list-group>
-      </div>
-      <div style="float: left; padding-left: 10px;">
-        <router-view></router-view>
-      </div>
-    </div>
+    <b-container fluid>
+      <b-row>
+        <b-col col lg="3">
+          <b-list-group>
+            <b-list-group-item :to="v.path" v-for="(v, i) in menus" :key="i">{{ v.name }}</b-list-group-item>
+          </b-list-group>
+        </b-col>
+        <b-col col lg="9">
+          <router-view></router-view>
+        </b-col>
+      </b-row>
+    </b-container>
   </div>
 </template>
 

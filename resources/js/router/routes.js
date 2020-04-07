@@ -19,6 +19,10 @@ const routes = [
         meta: { needAuth: true },
         children: [
             {
+                path: "/dashboard/users",
+                component: () => import("../pages/users/index")
+            },
+            {
                 path: "/dashboard/roles",
                 component: () => import("../pages/roles/index")
             },
@@ -29,21 +33,17 @@ const routes = [
         ]
     },
     {
-        path: "/roles/:id",
+        path: "/users/:id",
         component: () => import("../layouts/Dashboard"),
         meta: { needAuth: true },
         children: [
             {
-                path: "/roles/create",
-                component: () => import("../pages/roles/create")
+                path: "/users/:id/edit",
+                component: () => import("../pages/users/edit")
             },
             {
-                path: "/roles/:id/edit",
-                component: () => import("../pages/roles/edit")
-            },
-            {
-                path: "/roles/:id/delete",
-                component: () => import("../pages/roles/delete")
+                path: "/users/:id/delete",
+                component: () => import("../pages/users/delete")
             }
         ]
     },

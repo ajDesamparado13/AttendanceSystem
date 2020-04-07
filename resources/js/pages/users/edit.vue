@@ -1,8 +1,8 @@
 <template>
   <div>
-    <h5>Edit Role</h5>
-    <b-alert variant="success" :show="alertShow" dismissible>Role updated successfully.</b-alert>
-    <form-generic :role="role" ref="role" @success="success">
+    <h5>Edit User</h5>
+    <b-alert variant="success" :show="alertShow" dismissible>User updated successfully.</b-alert>
+    <form-generic :user="user" ref="role" @success="success">
       <b-button variant="primary" type="submit" @click="update">Update</b-button>
     </form-generic>
   </div>
@@ -21,14 +21,14 @@ export default {
     };
   },
   computed: {
-    ...mapState("roles", ["role"])
+    ...mapState("users", ["user"])
   },
   methods: {
     success(v) {
       this.alertShow = v;
     },
     update() {
-      this.$refs.role.update();
+      this.$refs.user.update();
     }
   }
 };

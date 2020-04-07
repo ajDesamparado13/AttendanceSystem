@@ -18,9 +18,9 @@ class CreateEmployeesTable extends Migration
             $table->bigInteger('user_id')->unsigned()->nullable();
             $table->foreign('user_id')->references('id')
                 ->on('users');
-            $table->string('firstname');
-            $table->string('lastname');
-            $table->string('phone');
+            $table->string('firstname')->nullable();
+            $table->string('lastname')->nullable();
+            $table->string('phone')->nullable();
             $table->timestamps();
         });
     }

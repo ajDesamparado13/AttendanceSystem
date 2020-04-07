@@ -80476,6 +80476,11 @@ var routes = [{
     needAuth: true
   },
   children: [{
+    path: "/dashboard/users",
+    component: function component() {
+      return __webpack_require__.e(/*! import() */ 13).then(__webpack_require__.bind(null, /*! ../pages/users/index */ "./resources/js/pages/users/index.vue"));
+    }
+  }, {
     path: "/dashboard/roles",
     component: function component() {
       return __webpack_require__.e(/*! import() */ 4).then(__webpack_require__.bind(null, /*! ../pages/roles/index */ "./resources/js/pages/roles/index.vue"));
@@ -80487,7 +80492,7 @@ var routes = [{
     }
   }]
 }, {
-  path: "/roles/:id",
+  path: "/users/:id",
   component: function component() {
     return __webpack_require__.e(/*! import() */ 3).then(__webpack_require__.bind(null, /*! ../layouts/Dashboard */ "./resources/js/layouts/Dashboard.vue"));
   },
@@ -80495,19 +80500,14 @@ var routes = [{
     needAuth: true
   },
   children: [{
-    path: "/roles/create",
+    path: "/users/:id/edit",
     component: function component() {
-      return __webpack_require__.e(/*! import() */ 5).then(__webpack_require__.bind(null, /*! ../pages/roles/create */ "./resources/js/pages/roles/create.vue"));
+      return __webpack_require__.e(/*! import() */ 14).then(__webpack_require__.bind(null, /*! ../pages/users/edit */ "./resources/js/pages/users/edit.vue"));
     }
   }, {
-    path: "/roles/:id/edit",
+    path: "/users/:id/delete",
     component: function component() {
-      return __webpack_require__.e(/*! import() */ 7).then(__webpack_require__.bind(null, /*! ../pages/roles/edit */ "./resources/js/pages/roles/edit.vue"));
-    }
-  }, {
-    path: "/roles/:id/delete",
-    component: function component() {
-      return __webpack_require__.e(/*! import() */ 6).then(__webpack_require__.bind(null, /*! ../pages/roles/delete */ "./resources/js/pages/roles/delete.vue"));
+      return __webpack_require__.e(/*! import() */ 5).then(__webpack_require__.bind(null, /*! ../pages/users/delete */ "./resources/js/pages/users/delete.vue"));
     }
   }]
 }, {

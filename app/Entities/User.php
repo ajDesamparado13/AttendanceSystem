@@ -40,9 +40,18 @@ class User extends Authenticatable implements Transformable
         'email_verified_at' => 'datetime',
     ];
 
+    protected $appends = [
+        'employeeName',
+    ];
+
     public function AauthAcessToken()
     {
         return $this->hasMany('App\Entities\OauthAccessToken');
+    }
+
+    public function employee()
+    {
+        return $this->hasOne('App\Entities\Employee', 'user_id', 'id');
     }
 
     public function roles()
@@ -60,6 +69,11 @@ class User extends Authenticatable implements Transformable
             return $this->attributes['password'] = $value;
         }
         $this->attributes['password'] = Hash::make($value);
+    }
+
+    public function getEmployeeNameAttribute()
+    {
+        return $this->employee->lastname . ', ' . $this->employee->firstname;
     }
 
 }
