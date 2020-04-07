@@ -9,3 +9,7 @@ export const setUser = (state, payload) => {
 export const setMenus = (state, payload) => {
     state.menus = payload;
 };
+
+export const setRoleIds = (state, payload) => {
+    state.roleIds = payload;
+};

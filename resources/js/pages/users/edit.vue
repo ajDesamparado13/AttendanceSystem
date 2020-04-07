@@ -2,7 +2,7 @@
   <div>
     <h5>Edit User</h5>
     <b-alert variant="success" :show="alertShow" dismissible>User updated successfully.</b-alert>
-    <form-generic :user="user" ref="role" @success="success">
+    <form-generic :user="user" ref="user" @success="success" :roleIds="roleIds">
       <b-button variant="primary" type="submit" @click="update">Update</b-button>
     </form-generic>
   </div>
@@ -21,7 +21,7 @@ export default {
     };
   },
   computed: {
-    ...mapState("users", ["user"])
+    ...mapState("users", ["user", "roleIds"])
   },
   methods: {
     success(v) {

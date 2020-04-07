@@ -80502,12 +80502,12 @@ var routes = [{
   children: [{
     path: "/users/:id/edit",
     component: function component() {
-      return __webpack_require__.e(/*! import() */ 14).then(__webpack_require__.bind(null, /*! ../pages/users/edit */ "./resources/js/pages/users/edit.vue"));
+      return __webpack_require__.e(/*! import() */ 5).then(__webpack_require__.bind(null, /*! ../pages/users/edit */ "./resources/js/pages/users/edit.vue"));
     }
   }, {
     path: "/users/:id/delete",
     component: function component() {
-      return __webpack_require__.e(/*! import() */ 5).then(__webpack_require__.bind(null, /*! ../pages/users/delete */ "./resources/js/pages/users/delete.vue"));
+      return __webpack_require__.e(/*! import() */ 14).then(__webpack_require__.bind(null, /*! ../pages/users/delete */ "./resources/js/pages/users/delete.vue"));
     }
   }]
 }, {
@@ -80867,7 +80867,7 @@ __webpack_require__.r(__webpack_exports__);
 /*!*********************************************!*\
   !*** ./resources/js/store/users/actions.js ***!
   \*********************************************/
-/*! exports provided: setToken, setUser, setMenus */
+/*! exports provided: setToken, setUser, setMenus, setRoleIds */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -80875,6 +80875,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "setToken", function() { return setToken; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "setUser", function() { return setUser; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "setMenus", function() { return setMenus; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "setRoleIds", function() { return setRoleIds; });
 var setToken = function setToken(_ref, payload) {
   var commit = _ref.commit;
   commit("setToken", payload);
@@ -80887,6 +80888,10 @@ var setMenus = function setMenus(_ref3, payload) {
   var commit = _ref3.commit;
   commit("setMenus", payload);
 };
+var setRoleIds = function setRoleIds(_ref4, payload) {
+  var commit = _ref4.commit;
+  commit("setRoleIds", payload);
+};
 
 /***/ }),
 
@@ -80894,7 +80899,7 @@ var setMenus = function setMenus(_ref3, payload) {
 /*!*********************************************!*\
   !*** ./resources/js/store/users/getters.js ***!
   \*********************************************/
-/*! exports provided: token, user, menus */
+/*! exports provided: token, user, menus, roleIds */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -80902,6 +80907,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "token", function() { return token; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "user", function() { return user; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "menus", function() { return menus; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "roleIds", function() { return roleIds; });
 var token = function token(state) {
   return state.token;
 };
@@ -80910,6 +80916,9 @@ var user = function user(state) {
 };
 var menus = function menus(state) {
   return state.menus;
+};
+var roleIds = function roleIds(state) {
+  return state.roleIds;
 };
 
 /***/ }),
@@ -80945,7 +80954,7 @@ __webpack_require__.r(__webpack_exports__);
 /*!***********************************************!*\
   !*** ./resources/js/store/users/mutations.js ***!
   \***********************************************/
-/*! exports provided: setToken, setUser, setMenus */
+/*! exports provided: setToken, setUser, setMenus, setRoleIds */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -80953,6 +80962,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "setToken", function() { return setToken; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "setUser", function() { return setUser; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "setMenus", function() { return setMenus; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "setRoleIds", function() { return setRoleIds; });
 var setToken = function setToken(state, payload) {
   state.token = payload;
 };
@@ -80961,6 +80971,9 @@ var setUser = function setUser(state, payload) {
 };
 var setMenus = function setMenus(state, payload) {
   state.menus = payload;
+};
+var setRoleIds = function setRoleIds(state, payload) {
+  state.roleIds = payload;
 };
 
 /***/ }),
@@ -80979,7 +80992,8 @@ __webpack_require__.r(__webpack_exports__);
   user: {
     company: null
   },
-  menus: []
+  menus: [],
+  roleIds: []
 });
 
 /***/ }),

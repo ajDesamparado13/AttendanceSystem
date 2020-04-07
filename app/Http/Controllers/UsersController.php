@@ -4,10 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\UserCreateRequest;
 use App\Http\Requests\UserUpdateRequest;
+use App\Repositories\EmployeeRepository;
 use App\Repositories\UserRepository;
 use App\Validators\UserValidator;
 use Illuminate\Http\Request;
-use Prettus\Validator\Contracts\ValidatorInterface;
 use Prettus\Validator\Exceptions\ValidatorException;
 
 /**
@@ -21,7 +21,7 @@ class UsersController extends Controller
      * @var UserRepository
      */
     protected $repository;
-
+    protected $employee;
     /**
      * @var UserValidator
      */
@@ -33,8 +33,9 @@ class UsersController extends Controller
      * @param UserRepository $repository
      * @param UserValidator $validator
      */
-    public function __construct(UserRepository $repository, UserValidator $validator)
+    public function __construct(EmployeeRepository $employee, UserRepository $repository, UserValidator $validator)
     {
+        $this->employee = $employee;
         $this->repository = $repository;
         $this->validator = $validator;
     }
@@ -75,7 +76,12 @@ class UsersController extends Controller
         try {
 
             $user = $this->repository->create($request->all());
-
+            $user = $this->repository->where('id', $user->id)->first();
+            $user->roles()->attach($user->id, [
+                'user_id' => $user->id,
+                'role_id' => 2,
+            ]);
+            $user->employee()->create($request->all());
             $response = [
                 'message' => 'User created.',
                 'data' => $user->toArray(),
@@ -129,11 +135,12 @@ class UsersController extends Controller
      */
     public function edit($id)
     {
-        $user = $this->repository->find($id);
+        $user = $this->repository->where('id', $id)->with(['roles'])->first();
         if (request()->wantsJson()) {
 
             return response()->json([
-                'data' => $user,
+                'user' => $user,
+                'roles' => $user->roles->pluck('id'),
             ]);
         }
 
@@ -154,9 +161,13 @@ class UsersController extends Controller
     {
         try {
 
-            $this->validator->with($request->all())->passesOrFail(ValidatorInterface::RULE_UPDATE);
-
             $user = $this->repository->update($request->all(), $id);
+            $employee = $this->employee->where('user_id', $user->id)->update([
+                'firstname' => $request->employee['firstname'],
+                'lastname' => $request->employee['lastname'],
+            ]);
+            $user = $this->repository->where('id', $id)->first();
+            $user->roles()->sync($request->roleIds);
 
             $response = [
                 'message' => 'User updated.',

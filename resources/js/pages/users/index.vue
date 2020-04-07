@@ -6,13 +6,14 @@
       style="margin-bottom: 5px;"
       debounce="500"
     ></b-form-input>
+    <b-alert variant="success" :show="alertShow" dismissible>User deleted successfully.</b-alert>
     <b-table striped hover :items="users" small :fields="fields">
       <template v-slot:cell(action)="data">
         <b-button variant="info" style="margin-bottom: 5px;" @click="edit(`${data.item.id}`)">Edit</b-button>
         <b-button
           variant="danger"
           style="margin-bottom: 5px;"
-          @click="deletee(`${data.item.id}`)"
+          @click="showMsgBoxTwo(`${data.item.id}`)"
         >Delete</b-button>
       </template>
     </b-table>
@@ -35,6 +36,9 @@ import { mapActions } from "vuex";
 export default {
   data() {
     return {
+      alertShow: false,
+      userId: null,
+      confirmDelete: false,
       filter: "",
       fields: [
         { key: "employeeName", label: "Name" },
@@ -49,22 +53,57 @@ export default {
     };
   },
   methods: {
-    ...mapActions("users", ["setUser"]),
+    ...mapActions("users", ["setUser", "setRoleIds"]),
+    showMsgBoxTwo(userId) {
+      var app = this;
+      this.$bvModal
+        .msgBoxConfirm("Please confirm that you want to delete everything.", {
+          title: "Please Confirm",
+          size: "sm",
+          buttonSize: "sm",
+          okVariant: "danger",
+          okTitle: "YES",
+          cancelTitle: "NO",
+          footerClass: "p-2",
+          hideHeaderClose: false,
+          centered: true
+        })
+        .then(value => {
+          axios.delete(`users/${userId}`).then(res => {
+            app.getUsers();
+            app.alertShow = true;
+          });
+        })
+        .catch(err => {
+          // An error occurred
+        });
+    },
     edit(id) {
       axios.get(`users/${id}/edit`).then(res => {
-        this.setUser(res.data.data);
+        let user = res.data.user;
+        let editUser = {
+          email: user.email,
+          employee: {
+            firstname: "",
+            lastname: ""
+          }
+        };
+        let firstname = "";
+        let lastname = "";
+        if (user.employee !== null) {
+          editUser.employee.firstname = user.employee.firstname;
+          editUser.employee.lastname = user.employee.lastname;
+        }
+
+        this.setUser(editUser);
+        this.setRoleIds(res.data.roles);
         this.$router.push({
           path: `/users/${id}/edit`
         });
       });
     },
     deletee(id) {
-      axios.get(`roles/${id}/edit`).then(res => {
-        this.setRole(res.data.role);
-        this.$router.push({
-          path: `/roles/${id}/delete`
-        });
-      });
+      this.userId = id;
     },
     getUsers() {
       axios

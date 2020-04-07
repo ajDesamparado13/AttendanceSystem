@@ -19,7 +19,7 @@ class User extends Authenticatable implements Transformable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'email', 'password',
     ];
 
     /**
@@ -43,6 +43,15 @@ class User extends Authenticatable implements Transformable
     protected $appends = [
         'employeeName',
     ];
+
+    public static function boot()
+    {
+        parent::boot();
+        static::deleting(function ($user) {
+            $user->employee()->delete();
+            $user->roles()->detach();
+        });
+    }
 
     public function AauthAcessToken()
     {
@@ -73,7 +82,10 @@ class User extends Authenticatable implements Transformable
 
     public function getEmployeeNameAttribute()
     {
-        return $this->employee->lastname . ', ' . $this->employee->firstname;
+        if (is_object($this->employee)) {
+            return $this->employee->lastname . ', ' . $this->employee->firstname;
+        }
+
     }
 
 }
