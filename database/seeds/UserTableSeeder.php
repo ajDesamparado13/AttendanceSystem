@@ -1,6 +1,8 @@
 <?php
 
-use App\Model\User;
+use App\Entities\User;
+use App\Entities\Role;
+use App\Entities\Menu;
 use Illuminate\Database\Seeder;
 
 class UserTableSeeder extends Seeder
@@ -22,5 +24,16 @@ class UserTableSeeder extends Seeder
             'user_id' => $user->id,
             'role_id' => 1,
         ]);
+
+        $role = Role::where('id', 1)->first();
+
+        $menus = Menu::all();
+        foreach($menus as $menu){
+            $role->menus()->attach($role->id, [
+                'role_id' => $role->id,
+                'menu_id' => $menu->id
+            ]);
+        }
+        
     }
 }

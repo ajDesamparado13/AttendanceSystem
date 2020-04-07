@@ -5,3 +5,7 @@ export const setToken = ({ commit }, payload) => {
 export const setUser = ({ commit }, payload) => {
     commit("setUser", payload);
 };
+
+export const setMenus = ({ commit }, payload) => {
+    commit("setMenus", payload);
+};

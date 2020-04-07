@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
-use App\Model\User;
+use App\Entities\User;
 use App\Providers\RouteServiceProvider;
 use Auth;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
@@ -47,13 +47,14 @@ class LoginController extends Controller
             return $this->success('email', $request->email);
         } else {
             return response()->json(['error' => 'Invalid Username or Password.'], 401);
+            return 'asdf';
         }
     }
 
     public function success($field, $value)
     {
         $request = app()->make('request');
-        $user = User::where($field, $value)->with(['company'])->first();
+        $user = User::where($field, $value)->first();
         $success['token'] = $user->createToken('MyApp')->accessToken;
         return response()->json([
             'success' => $success,

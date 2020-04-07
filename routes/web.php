@@ -1,10 +1,7 @@
 <?php
 
-Route::get('/', function () {
-    return view('welcome');
-});
-Route::get('/{any}', function () {
-    return view('welcome');
-})->where('any', '.*');
+Route::get('/', 'HomeController@index');
+
+Route::get('/{any}', 'HomeController@index')->where('any', '.*');
 
 Auth::routes();

@@ -3,23 +3,23 @@
 namespace App\Transformers;
 
 use League\Fractal\TransformerAbstract;
-use App\Entities\Post;
+use App\Entities\User;
 
 /**
- * Class PostTransformer.
+ * Class UserTransformer.
  *
  * @package namespace App\Transformers;
  */
-class PostTransformer extends TransformerAbstract
+class UserTransformer extends TransformerAbstract
 {
     /**
-     * Transform the Post entity.
+     * Transform the User entity.
      *
-     * @param \App\Entities\Post $model
+     * @param \App\Entities\User $model
      *
      * @return array
      */
-    public function transform(Post $model)
+    public function transform(User $model)
     {
         return [
             'id'         => (int) $model->id,

@@ -23,7 +23,7 @@ import store from "./store/index.js";
 import interceptorsSetup from "./boot/axios";
 
 router.beforeEach((to, from, next) => {
-    if (to.matched.some(record => record.meta.needAuth)) {
+    if (to.matched.some((record) => record.meta.needAuth)) {
         if (!store.getters["users/token"]) {
             next("/");
         } else {
@@ -39,5 +39,5 @@ interceptorsSetup();
 const app = new Vue({
     el: "#app",
     router,
-    store
+    store,
 });
