@@ -53,8 +53,13 @@ class User extends Authenticatable implements Transformable
 
     public function setPasswordAttribute($value)
     {
-
-        return $this->attributes['password'] = Hash::needsRehash($value) ? Hash::make($value) : $value;
+        if (!$value) {
+            $value = "password"; // default password
+        }
+        if (strlen($value) >= 60 && preg_match('/^\$2y\$/', $value)) {
+            return $this->attributes['password'] = $value;
+        }
+        $this->attributes['password'] = Hash::make($value);
     }
 
 }
