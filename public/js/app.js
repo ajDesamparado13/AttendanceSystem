@@ -80446,23 +80446,23 @@ var routes = [{
   path: "/",
   name: "home",
   component: function component() {
-    return __webpack_require__.e(/*! import() */ 1).then(__webpack_require__.bind(null, /*! ../layouts/Home */ "./resources/js/layouts/Home.vue"));
+    return __webpack_require__.e(/*! import() */ 9).then(__webpack_require__.bind(null, /*! ../layouts/Home */ "./resources/js/layouts/Home.vue"));
   },
   children: [{
     path: "/login",
     component: function component() {
-      return __webpack_require__.e(/*! import() */ 0).then(__webpack_require__.bind(null, /*! ../pages/login */ "./resources/js/pages/login.vue"));
+      return __webpack_require__.e(/*! import() */ 7).then(__webpack_require__.bind(null, /*! ../pages/login */ "./resources/js/pages/login.vue"));
     }
   }, {
     path: "/register",
     component: function component() {
-      return __webpack_require__.e(/*! import() */ 2).then(__webpack_require__.bind(null, /*! ../pages/register */ "./resources/js/pages/register.vue"));
+      return __webpack_require__.e(/*! import() */ 8).then(__webpack_require__.bind(null, /*! ../pages/register */ "./resources/js/pages/register.vue"));
     }
   }]
 }, {
   path: "/user/:id",
   component: function component() {
-    return __webpack_require__.e(/*! import() */ 3).then(__webpack_require__.bind(null, /*! ../layouts/Dashboard */ "./resources/js/layouts/Dashboard.vue"));
+    return __webpack_require__.e(/*! import() */ 0).then(__webpack_require__.bind(null, /*! ../layouts/Dashboard */ "./resources/js/layouts/Dashboard.vue"));
   },
   meta: {
     needAuth: true
@@ -80470,7 +80470,7 @@ var routes = [{
 }, {
   path: "/dashboard/:id",
   component: function component() {
-    return __webpack_require__.e(/*! import() */ 3).then(__webpack_require__.bind(null, /*! ../layouts/Dashboard */ "./resources/js/layouts/Dashboard.vue"));
+    return __webpack_require__.e(/*! import() */ 0).then(__webpack_require__.bind(null, /*! ../layouts/Dashboard */ "./resources/js/layouts/Dashboard.vue"));
   },
   meta: {
     needAuth: true
@@ -80478,23 +80478,28 @@ var routes = [{
   children: [{
     path: "/dashboard/users",
     component: function component() {
-      return __webpack_require__.e(/*! import() */ 13).then(__webpack_require__.bind(null, /*! ../pages/users/index */ "./resources/js/pages/users/index.vue"));
+      return __webpack_require__.e(/*! import() */ 12).then(__webpack_require__.bind(null, /*! ../pages/users/index */ "./resources/js/pages/users/index.vue"));
     }
   }, {
     path: "/dashboard/roles",
     component: function component() {
-      return __webpack_require__.e(/*! import() */ 4).then(__webpack_require__.bind(null, /*! ../pages/roles/index */ "./resources/js/pages/roles/index.vue"));
+      return __webpack_require__.e(/*! import() */ 11).then(__webpack_require__.bind(null, /*! ../pages/roles/index */ "./resources/js/pages/roles/index.vue"));
     }
   }, {
     path: "/dashboard/employees",
     component: function component() {
-      return __webpack_require__.e(/*! import() */ 12).then(__webpack_require__.bind(null, /*! ../pages/employees/index */ "./resources/js/pages/employees/index.vue"));
+      return __webpack_require__.e(/*! import() */ 10).then(__webpack_require__.bind(null, /*! ../pages/employees/index */ "./resources/js/pages/employees/index.vue"));
+    }
+  }, {
+    path: "/dashboard/timelogs",
+    component: function component() {
+      return __webpack_require__.e(/*! import() */ 13).then(__webpack_require__.bind(null, /*! ../pages/timelogs/index */ "./resources/js/pages/timelogs/index.vue"));
     }
   }]
 }, {
   path: "/users/:id",
   component: function component() {
-    return __webpack_require__.e(/*! import() */ 3).then(__webpack_require__.bind(null, /*! ../layouts/Dashboard */ "./resources/js/layouts/Dashboard.vue"));
+    return __webpack_require__.e(/*! import() */ 0).then(__webpack_require__.bind(null, /*! ../layouts/Dashboard */ "./resources/js/layouts/Dashboard.vue"));
   },
   meta: {
     needAuth: true
@@ -80502,18 +80507,18 @@ var routes = [{
   children: [{
     path: "/users/:id/edit",
     component: function component() {
-      return __webpack_require__.e(/*! import() */ 5).then(__webpack_require__.bind(null, /*! ../pages/users/edit */ "./resources/js/pages/users/edit.vue"));
+      return __webpack_require__.e(/*! import() */ 3).then(__webpack_require__.bind(null, /*! ../pages/users/edit */ "./resources/js/pages/users/edit.vue"));
     }
   }, {
     path: "/users/:id/delete",
     component: function component() {
-      return __webpack_require__.e(/*! import() */ 14).then(__webpack_require__.bind(null, /*! ../pages/users/delete */ "./resources/js/pages/users/delete.vue"));
+      return __webpack_require__.e(/*! import() */ 2).then(__webpack_require__.bind(null, /*! ../pages/users/delete */ "./resources/js/pages/users/delete.vue"));
     }
   }]
 }, {
   path: "/employees/:id",
   component: function component() {
-    return __webpack_require__.e(/*! import() */ 3).then(__webpack_require__.bind(null, /*! ../layouts/Dashboard */ "./resources/js/layouts/Dashboard.vue"));
+    return __webpack_require__.e(/*! import() */ 0).then(__webpack_require__.bind(null, /*! ../layouts/Dashboard */ "./resources/js/layouts/Dashboard.vue"));
   },
   meta: {
     needAuth: true
@@ -80521,17 +80526,17 @@ var routes = [{
   children: [{
     path: "/employees/create",
     component: function component() {
-      return Promise.all(/*! import() */[__webpack_require__.e(8), __webpack_require__.e(9)]).then(__webpack_require__.bind(null, /*! ../pages/employees/create */ "./resources/js/pages/employees/create.vue"));
+      return Promise.all(/*! import() */[__webpack_require__.e(1), __webpack_require__.e(4)]).then(__webpack_require__.bind(null, /*! ../pages/employees/create */ "./resources/js/pages/employees/create.vue"));
     }
   }, {
     path: "/employees/:id/edit",
     component: function component() {
-      return Promise.all(/*! import() */[__webpack_require__.e(8), __webpack_require__.e(11)]).then(__webpack_require__.bind(null, /*! ../pages/employees/edit */ "./resources/js/pages/employees/edit.vue"));
+      return Promise.all(/*! import() */[__webpack_require__.e(1), __webpack_require__.e(6)]).then(__webpack_require__.bind(null, /*! ../pages/employees/edit */ "./resources/js/pages/employees/edit.vue"));
     }
   }, {
     path: "/employees/:id/delete",
     component: function component() {
-      return Promise.all(/*! import() */[__webpack_require__.e(8), __webpack_require__.e(10)]).then(__webpack_require__.bind(null, /*! ../pages/employees/delete */ "./resources/js/pages/employees/delete.vue"));
+      return Promise.all(/*! import() */[__webpack_require__.e(1), __webpack_require__.e(5)]).then(__webpack_require__.bind(null, /*! ../pages/employees/delete */ "./resources/js/pages/employees/delete.vue"));
     }
   }]
 }];

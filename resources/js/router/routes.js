@@ -29,6 +29,10 @@ const routes = [
             {
                 path: "/dashboard/employees",
                 component: () => import("../pages/employees/index")
+            },
+            {
+                path: "/dashboard/timelogs",
+                component: () => import("../pages/timelogs/index")
             }
         ]
     },

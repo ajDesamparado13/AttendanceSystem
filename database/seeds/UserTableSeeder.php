@@ -44,5 +44,12 @@ class UserTableSeeder extends Seeder
             ]);
         }
 
+        $role = Role::where('id', 2)->first();
+        $menu = Menu::where('name', 'Timelogs')->first();
+        $role->menus()->attach($role->id, [
+            'role_id' => $role->id,
+            'menu_id' => $menu->id,
+        ]);
+
     }
 }
