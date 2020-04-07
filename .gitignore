@@ -14,8 +14,11 @@ yarn-error.log
 
 /public/*.js
 /public/js
+/public/js/app.js
 /public/*.css
 /public/css
+/public/css/app.css
+
 
 package-lock.json
 composer.lock
