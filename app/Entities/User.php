@@ -2,11 +2,13 @@
 
 namespace App\Entities;
 
+use Hash;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Passport\HasApiTokens;
 use Prettus\Repository\Contracts\Transformable;
 use Prettus\Repository\Traits\TransformableTrait;
+
 class User extends Authenticatable implements Transformable
 {
     use HasApiTokens, Notifiable, TransformableTrait;
@@ -46,12 +48,13 @@ class User extends Authenticatable implements Transformable
     public function roles()
     {
         return $this->belongsToMany('App\Entities\Role', 'role_user', 'user_id', 'role_id')->withTimestamps();
+
     }
 
     public function setPasswordAttribute($value)
-{
-    $this->attributes['password'] = Hash::make($value)
-}
+    {
 
+        return $this->attributes['password'] = Hash::needsRehash($value) ? Hash::make($value) : $value;
+    }
 
 }

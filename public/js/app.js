@@ -83787,7 +83787,7 @@ window.axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js")
 //         local: "",
 //     }[type]);
 
-var APP_URL = "http://localhost";
+var APP_URL = "http://localhost:8000";
 axios.defaults.baseURL = APP_URL;
 axios.defaults.headers.common["X-Requested-With"] = "XMLHttpRequest";
 axios.defaults.headers.post["Content-Type"] = "application/json";
