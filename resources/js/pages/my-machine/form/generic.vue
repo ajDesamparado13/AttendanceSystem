@@ -30,9 +30,9 @@ export default {
     },
     update() {
       axios
-        .post(`my-machines`, {
+        .post(`my-machine`, {
           employee_id: this.locMachine.employee_id,
-          MAC_address: this.locMachine.MAC_Address
+          MAC_Address: this.locMachine.MAC_Address
         })
         .then(res => {
           this.$emit("success", true);

@@ -51,5 +51,17 @@ class UserTableSeeder extends Seeder
             'menu_id' => $menu->id,
         ]);
 
+        $menu = Menu::where('name', 'My Machine')->first();
+        $role->menus()->attach($role->id, [
+            'role_id' => $role->id,
+            'menu_id' => $menu->id,
+        ]);
+
+        $menu = Menu::where('name', 'Profile')->first();
+        $role->menus()->attach($role->id, [
+            'role_id' => $role->id,
+            'menu_id' => $menu->id,
+        ]);
+
     }
 }

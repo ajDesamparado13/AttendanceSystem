@@ -23,12 +23,8 @@ const routes = [
                 component: () => import("../pages/users/index")
             },
             {
-                path: "/dashboard/roles",
-                component: () => import("../pages/roles/index")
-            },
-            {
-                path: "/dashboard/employees",
-                component: () => import("../pages/employees/index")
+                path: "/dashboard/profile",
+                component: () => import("../pages/profile/edit")
             },
             {
                 path: "/dashboard/timelogs",

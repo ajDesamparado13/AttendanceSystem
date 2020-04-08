@@ -80481,14 +80481,9 @@ var routes = [{
       return __webpack_require__.e(/*! import() */ 14).then(__webpack_require__.bind(null, /*! ../pages/users/index */ "./resources/js/pages/users/index.vue"));
     }
   }, {
-    path: "/dashboard/roles",
+    path: "/dashboard/profile",
     component: function component() {
-      return __webpack_require__.e(/*! import() */ 12).then(__webpack_require__.bind(null, /*! ../pages/roles/index */ "./resources/js/pages/roles/index.vue"));
-    }
-  }, {
-    path: "/dashboard/employees",
-    component: function component() {
-      return __webpack_require__.e(/*! import() */ 11).then(__webpack_require__.bind(null, /*! ../pages/employees/index */ "./resources/js/pages/employees/index.vue"));
+      return __webpack_require__.e(/*! import() */ 11).then(__webpack_require__.bind(null, /*! ../pages/profile/edit */ "./resources/js/pages/profile/edit.vue"));
     }
   }, {
     path: "/dashboard/timelogs",

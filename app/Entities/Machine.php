@@ -20,6 +20,9 @@ class Machine extends Model implements Transformable
      *
      * @var array
      */
-    protected $fillable = [];
+    protected $table = 'machines';
+    protected $fillable = [
+        'MAC_Address', 'employee_id',
+    ];
 
 }

@@ -2,9 +2,10 @@
 
 namespace App\Http\Requests;
 
+use Auth;
 use Illuminate\Foundation\Http\FormRequest;
 
-class MachineCreateRequest extends FormRequest
+class ProfileUpdateRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,8 +25,7 @@ class MachineCreateRequest extends FormRequest
     public function rules()
     {
         return [
-            'MAC_Address' => 'required',
-            'employee_id' => 'required'
+            'email' => 'unique:users,email,' . Auth::User()->id,
         ];
     }
 }

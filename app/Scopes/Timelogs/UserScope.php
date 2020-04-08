@@ -2,7 +2,6 @@
 
 namespace App\Scopes\Timelogs;
 
-use App\Entities\Menu;
 use Auth;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
@@ -20,12 +19,8 @@ class UserScope implements Scope
      */
     public function apply(Builder $builder, Model $model)
     {
-        $roles = Auth::User()->roles->pluck('id');
-        $menus = Menu::whereHas('roles', function ($q) use ($roles) {
-            $q->whereIn('roles.id', $roles);
-        })->get()->pluck('name')->values()->all();
-
-        if (!in_array('Timelogs', $menus)) {
+        $roles = Auth::User()->roles->pluck('name')->values()->all();
+        if (!in_array('Admin', $roles)) {
             $builder->where('causer_id', Auth::User()->id);
         }
 

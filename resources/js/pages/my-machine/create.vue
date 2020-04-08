@@ -2,7 +2,7 @@
   <b-container fluid>
     <b-row>
       <b-col col lg="12">
-        <h5 style="margin-top: 20px; margin-left: 20px;">My MAC address</h5>
+        <h5 style="margin-top: 20px; margin-left: 20px;">MAC Address</h5>
         <b-alert variant="success" :show="alertShow" dismissible>Machine updated successfully.</b-alert>
         <form-generic :machine="machine" ref="machine" @success="success">
           <b-button variant="primary" type="submit" @click="update">Update</b-button>
@@ -32,6 +32,7 @@ export default {
     ...mapActions("machines", ["setEmployeeId", "setMACAddress"]),
     success(v) {
       this.alertShow = v;
+      this.getMacAddress();
     },
     update() {
       this.$refs.machine.update();
