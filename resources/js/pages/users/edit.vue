@@ -31,7 +31,11 @@ export default {
     update() {
       this.$refs.user.update();
     },
-    changePassword() {}
+    changePassword() {
+      this.$router.push({
+        path: `/users/${this.$route.params.id}/change-password`
+      });
+    }
   }
 };
 </script>

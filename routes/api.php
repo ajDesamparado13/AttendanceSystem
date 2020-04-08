@@ -9,9 +9,10 @@ Route::group(['middleware' => 'auth:api'], function () {
     Route::resource('timelogs', 'TimelogsController');
     Route::get('profile', 'Api\User\ProfileController@edit');
     Route::post('profile_update', 'Api\User\ProfileController@update');
+    Route::post('my-machine', 'Api\Machine\MyMachineController@store');
+    Route::post('change_password', 'UsersController@changePassword');
     Route::get('machine_employee_id', 'Api\Machine\EmployeeController@employeeId');
     Route::get('machine_mac_address', 'Api\Machine\MyMachineController@macAddress');
-    Route::post('my-machine', 'Api\Machine\MyMachineController@store');
     Route::get('user_roles', 'Api\User\RoleController@index');
     Route::get('dashboard_menus', 'Api\Dashboard\MenuController@index');
 });

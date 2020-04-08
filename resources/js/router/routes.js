@@ -48,6 +48,10 @@ const routes = [
             {
                 path: "/users/:id/delete",
                 component: () => import("../pages/users/delete")
+            },
+            {
+                path: "/users/:id/change-password",
+                component: () => import("../pages/users/change-password")
             }
         ]
     },

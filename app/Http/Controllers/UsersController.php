@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Entities\User;
+use App\Http\Requests\PasswordRequest;
 use App\Http\Requests\UserCreateRequest;
 use App\Http\Requests\UserUpdateRequest;
 use App\Repositories\EmployeeRepository;
@@ -221,5 +222,15 @@ class UsersController extends Controller
         }
 
         return redirect()->back()->with('message', 'User deleted.');
+    }
+
+    public function changePassword(PasswordRequest $request)
+    {
+        $user = $this->repository->where('id', $request->id)->update([
+            'password' => $request->password,
+        ]);
+        return response()->json([
+            'success' => true,
+        ]);
     }
 }

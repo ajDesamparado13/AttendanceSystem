@@ -80514,6 +80514,11 @@ var routes = [{
     component: function component() {
       return __webpack_require__.e(/*! import() */ 3).then(__webpack_require__.bind(null, /*! ../pages/users/delete */ "./resources/js/pages/users/delete.vue"));
     }
+  }, {
+    path: "/users/:id/change-password",
+    component: function component() {
+      return __webpack_require__.e(/*! import() */ 12).then(__webpack_require__.bind(null, /*! ../pages/users/change-password */ "./resources/js/pages/users/change-password.vue"));
+    }
   }]
 }, {
   path: "/employees/:id",

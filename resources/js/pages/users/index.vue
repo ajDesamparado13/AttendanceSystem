@@ -9,7 +9,7 @@
     <b-alert variant="success" :show="alertShow" dismissible>User deleted successfully.</b-alert>
     <b-table striped hover :items="users" small :fields="fields">
       <template v-slot:cell(action)="data">
-        <b-button variant="info" style="margin-bottom: 5px;" @click="edit(`${data.item.id}`)">Edit</b-button>
+        <b-button variant="info" style="margin-bottom: 5px; " @click="edit(`${data.item.id}`)">Edit</b-button>
         <b-button
           variant="danger"
           style="margin-bottom: 5px;"
