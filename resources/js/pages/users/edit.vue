@@ -4,6 +4,7 @@
     <b-alert variant="success" :show="alertShow" dismissible>User updated successfully.</b-alert>
     <form-generic :user="user" ref="user" @success="success" :roleIds="roleIds">
       <b-button variant="primary" type="submit" @click="update">Update</b-button>
+      <b-button variant="success" type="submit" @click="changePassword">Change Password</b-button>
     </form-generic>
   </div>
 </template>
@@ -29,7 +30,8 @@ export default {
     },
     update() {
       this.$refs.user.update();
-    }
+    },
+    changePassword() {}
   }
 };
 </script>

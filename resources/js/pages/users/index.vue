@@ -69,10 +69,12 @@ export default {
           centered: true
         })
         .then(value => {
-          axios.delete(`users/${userId}`).then(res => {
-            app.getUsers();
-            app.alertShow = true;
-          });
+          if (value === true) {
+            axios.delete(`users/${userId}`).then(res => {
+              app.getUsers();
+              app.alertShow = true;
+            });
+          }
         })
         .catch(err => {
           // An error occurred
@@ -113,6 +115,9 @@ export default {
         .then(res => {
           this.users = _.values(res.data.data.data);
           this.rows = res.data.data.total;
+        })
+        .catch(err => {
+          this.$router.go(-1);
         });
     }
   },
