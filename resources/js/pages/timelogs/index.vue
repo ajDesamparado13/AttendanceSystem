@@ -1,21 +1,33 @@
 <template>
   <div style="padding-left: 20px; margin-top: 10px; ">
-    <b-form-input
-      v-model="filter"
-      placeholder="Search email... "
-      style="margin-bottom: 5px;"
-      debounce="500"
-    ></b-form-input>
+    <b-container fluid>
+      <b-row>
+        <b-col col lg="8">
+          <b-form-input
+            v-model="filter"
+            placeholder="Search Causer Id... "
+            style="margin-bottom: 5px;"
+            debounce="500"
+          ></b-form-input>
+        </b-col>
+        <b-col col lg="4">
+          <b-button-group>
+            <b-button variant="success" :disabled="lastAction === 'time-in'" @click="login">Login</b-button>
+            <b-button variant="danger" :disabled="lastAction === 'time-out'" @click="logout">Logout</b-button>
+          </b-button-group>
+        </b-col>
+      </b-row>
+    </b-container>
     <b-alert variant="success" :show="alertShow" dismissible>User deleted successfully.</b-alert>
-    <b-table striped hover :items="users" small :fields="fields">
-      <template v-slot:cell(action)="data">
+    <b-table striped hover :items="timelogs" small :fields="fields">
+      <!-- <template v-slot:cell(action)="data">
         <b-button variant="info" style="margin-bottom: 5px;" @click="edit(`${data.item.id}`)">Edit</b-button>
         <b-button
           variant="danger"
           style="margin-bottom: 5px;"
           @click="showMsgBoxTwo(`${data.item.id}`)"
         >Delete</b-button>
-      </template>
+      </template>-->
     </b-table>
 
     <b-pagination
@@ -36,20 +48,22 @@ import { mapActions } from "vuex";
 export default {
   data() {
     return {
+      lastAction: null,
       alertShow: false,
       userId: null,
       confirmDelete: false,
       filter: "",
       fields: [
-        { key: "employeeName", label: "Name" },
-        { key: "email", label: "Email" },
-        { key: "action", label: "Actions" }
+        { key: "causer_type", label: "Causer Type" },
+        { key: "causer_id", label: "Causer Id" },
+        { key: "action", label: "Actions" },
+        { key: "created_at", label: "Created At" }
       ],
       page: 1,
       rows: 10,
       perPage: 10,
       currentPage: 1,
-      users: []
+      timelogs: []
     };
   },
   methods: {
@@ -78,53 +92,48 @@ export default {
           // An error occurred
         });
     },
-    edit(id) {
-      axios.get(`users/${id}/edit`).then(res => {
-        let user = res.data.user;
-        let editUser = {
-          email: user.email,
-          employee: {
-            firstname: "",
-            lastname: ""
-          }
-        };
-        let firstname = "";
-        let lastname = "";
-        if (user.employee !== null) {
-          editUser.employee.firstname = user.employee.firstname;
-          editUser.employee.lastname = user.employee.lastname;
-        }
-
-        this.setUser(editUser);
-        this.setRoleIds(res.data.roles);
-        this.$router.push({
-          path: `/users/${id}/edit`
+    login(id) {
+      axios
+        .post(`timelogs`, {
+          action: "time-in"
+        })
+        .then(res => {
+          this.getTimelogs();
         });
-      });
+    },
+    logout(id) {
+      axios
+        .post(`timelogs`, {
+          action: "time-out"
+        })
+        .then(res => {
+          this.getTimelogs();
+        });
     },
     deletee(id) {
       this.userId = id;
     },
-    getUsers() {
+    getTimelogs() {
       axios
         .get(
-          `users?search=${this.filter}&page=${this.currentPage}&limit=${this.perPage}`
+          `timelogs?search=${this.filter}&page=${this.currentPage}&limit=${this.perPage}`
         )
         .then(res => {
-          this.users = _.values(res.data.data.data);
+          this.timelogs = _.values(res.data.data.data);
           this.rows = res.data.data.total;
+          this.lastAction = res.data.lastAction;
         });
     }
   },
   mounted() {
-    this.getUsers();
+    this.getTimelogs();
   },
   watch: {
     currentPage() {
-      this.getUsers();
+      this.getTimelogs();
     },
     filter() {
-      this.getUsers();
+      this.getTimelogs();
     }
   }
 };

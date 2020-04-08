@@ -33,6 +33,10 @@ const routes = [
             {
                 path: "/dashboard/timelogs",
                 component: () => import("../pages/timelogs/index")
+            },
+            {
+                path: "/dashboard/my-machine",
+                component: () => import("../pages/my-machine/create")
             }
         ]
     },
