@@ -5,7 +5,11 @@ const routes = [
         component: () => import("../layouts/Home"),
         children: [
             { path: "/login", component: () => import("../pages/login") },
-            { path: "/register", component: () => import("../pages/register") }
+            { path: "/register", component: () => import("../pages/register") },
+            {
+                path: "/forgot-password",
+                component: () => import("../pages/forgot-password")
+            }
         ]
     },
     {

@@ -34,6 +34,24 @@ class UserTableSeeder extends Seeder
             'phone' => $faker->phoneNumber,
         ]);
 
+        $user = User::create([
+            'email' => 'bobby.gerez@yahoo.com',
+            'password' => Hash::make('password'),
+        ]);
+
+        $user = User::where('id', $user->id)->first();
+        $user->roles()->attach($user->id, [
+            'user_id' => $user->id,
+            'role_id' => 1,
+        ]);
+
+        Employee::create([
+            'user_id' => $user->id,
+            'firstname' => $faker->firstName($gender = null),
+            'lastname' => $faker->lastName,
+            'phone' => $faker->phoneNumber,
+        ]);
+
         $role = Role::where('id', 1)->first();
 
         $menus = Menu::all();

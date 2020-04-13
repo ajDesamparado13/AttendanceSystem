@@ -80446,17 +80446,22 @@ var routes = [{
   path: "/",
   name: "home",
   component: function component() {
-    return __webpack_require__.e(/*! import() */ 13).then(__webpack_require__.bind(null, /*! ../layouts/Home */ "./resources/js/layouts/Home.vue"));
+    return __webpack_require__.e(/*! import() */ 14).then(__webpack_require__.bind(null, /*! ../layouts/Home */ "./resources/js/layouts/Home.vue"));
   },
   children: [{
     path: "/login",
     component: function component() {
-      return __webpack_require__.e(/*! import() */ 11).then(__webpack_require__.bind(null, /*! ../pages/login */ "./resources/js/pages/login.vue"));
+      return __webpack_require__.e(/*! import() */ 12).then(__webpack_require__.bind(null, /*! ../pages/login */ "./resources/js/pages/login.vue"));
     }
   }, {
     path: "/register",
     component: function component() {
-      return __webpack_require__.e(/*! import() */ 12).then(__webpack_require__.bind(null, /*! ../pages/register */ "./resources/js/pages/register.vue"));
+      return __webpack_require__.e(/*! import() */ 13).then(__webpack_require__.bind(null, /*! ../pages/register */ "./resources/js/pages/register.vue"));
+    }
+  }, {
+    path: "/forgot-password",
+    component: function component() {
+      return __webpack_require__.e(/*! import() */ 11).then(__webpack_require__.bind(null, /*! ../pages/forgot-password */ "./resources/js/pages/forgot-password.vue"));
     }
   }]
 }, {
@@ -80478,7 +80483,7 @@ var routes = [{
   children: [{
     path: "/dashboard/users",
     component: function component() {
-      return __webpack_require__.e(/*! import() */ 15).then(__webpack_require__.bind(null, /*! ../pages/users/index */ "./resources/js/pages/users/index.vue"));
+      return __webpack_require__.e(/*! import() */ 16).then(__webpack_require__.bind(null, /*! ../pages/users/index */ "./resources/js/pages/users/index.vue"));
     }
   }, {
     path: "/dashboard/profile",
@@ -80493,7 +80498,7 @@ var routes = [{
   }, {
     path: "/dashboard/timelogs",
     component: function component() {
-      return __webpack_require__.e(/*! import() */ 14).then(__webpack_require__.bind(null, /*! ../pages/timelogs/index */ "./resources/js/pages/timelogs/index.vue"));
+      return __webpack_require__.e(/*! import() */ 15).then(__webpack_require__.bind(null, /*! ../pages/timelogs/index */ "./resources/js/pages/timelogs/index.vue"));
     }
   }, {
     path: "/dashboard/my-machine",
