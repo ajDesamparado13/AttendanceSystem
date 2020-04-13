@@ -27,6 +27,10 @@ const routes = [
                 component: () => import("../pages/profile/edit")
             },
             {
+                path: "/dashboard/profile/:id",
+                component: () => import("../pages/profile/change-password")
+            },
+            {
                 path: "/dashboard/timelogs",
                 component: () => import("../pages/timelogs/index")
             },

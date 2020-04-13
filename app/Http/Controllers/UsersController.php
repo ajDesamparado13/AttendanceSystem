@@ -226,7 +226,7 @@ class UsersController extends Controller
 
     public function changePassword(PasswordRequest $request)
     {
-        $user = $this->repository->where('id', $request->id)->update([
+        $user = $this->repository->where('id', $request->id)->first()->update([
             'password' => $request->password,
         ]);
         return response()->json([
