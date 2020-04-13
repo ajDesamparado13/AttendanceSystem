@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Entities\User;
+use App\Http\Requests\PasswordRequest;
 use App\Http\Requests\UserCreateRequest;
 use App\Http\Requests\UserUpdateRequest;
 use App\Repositories\EmployeeRepository;
@@ -47,6 +49,7 @@ class UsersController extends Controller
      */
     public function index()
     {
+        $this->authorize('index', User::class);
         $request = app()->make('request');
         $this->repository->pushCriteria(app('Prettus\Repository\Criteria\RequestCriteria'));
         $users = $this->repository->with(['employee'])
@@ -73,6 +76,7 @@ class UsersController extends Controller
      */
     public function store(UserCreateRequest $request)
     {
+
         try {
 
             $user = $this->repository->create($request->all());
@@ -135,6 +139,8 @@ class UsersController extends Controller
      */
     public function edit($id)
     {
+
+        $this->authorize('index', User::class);
         $user = $this->repository->where('id', $id)->with(['roles'])->first();
         if (request()->wantsJson()) {
 
@@ -159,6 +165,7 @@ class UsersController extends Controller
      */
     public function update(UserUpdateRequest $request, $id)
     {
+        $this->authorize('index', User::class);
         try {
 
             $user = $this->repository->update($request->all(), $id);
@@ -203,6 +210,7 @@ class UsersController extends Controller
      */
     public function destroy($id)
     {
+        $this->authorize('index', User::class);
         $deleted = $this->repository->delete($id);
 
         if (request()->wantsJson()) {
@@ -214,5 +222,15 @@ class UsersController extends Controller
         }
 
         return redirect()->back()->with('message', 'User deleted.');
+    }
+
+    public function changePassword(PasswordRequest $request)
+    {
+        $user = $this->repository->where('id', $request->id)->update([
+            'password' => $request->password,
+        ]);
+        return response()->json([
+            'success' => true,
+        ]);
     }
 }

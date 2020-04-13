@@ -2,6 +2,8 @@
 
 namespace App\Entities;
 
+use App\Scopes\Timelogs\UserScope;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Prettus\Repository\Contracts\Transformable;
 use Prettus\Repository\Traits\TransformableTrait;
@@ -20,6 +22,20 @@ class Timelog extends Model implements Transformable
      *
      * @var array
      */
-    protected $fillable = [];
+    protected $table = 'timelogs';
+    protected $fillable = [
+        'causer_type', 'causer_id', 'action',
+    ];
 
+    protected static function boot()
+    {
+        parent::boot();
+        static::addGlobalScope(new UserScope);
+    }
+
+    public function getCreatedAtAttribute($val)
+    {
+
+        return Carbon::parse($val)->toDayDateTimeString();
+    }
 }

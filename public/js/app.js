@@ -80446,17 +80446,17 @@ var routes = [{
   path: "/",
   name: "home",
   component: function component() {
-    return __webpack_require__.e(/*! import() */ 9).then(__webpack_require__.bind(null, /*! ../layouts/Home */ "./resources/js/layouts/Home.vue"));
+    return __webpack_require__.e(/*! import() */ 10).then(__webpack_require__.bind(null, /*! ../layouts/Home */ "./resources/js/layouts/Home.vue"));
   },
   children: [{
     path: "/login",
     component: function component() {
-      return __webpack_require__.e(/*! import() */ 7).then(__webpack_require__.bind(null, /*! ../pages/login */ "./resources/js/pages/login.vue"));
+      return __webpack_require__.e(/*! import() */ 8).then(__webpack_require__.bind(null, /*! ../pages/login */ "./resources/js/pages/login.vue"));
     }
   }, {
     path: "/register",
     component: function component() {
-      return __webpack_require__.e(/*! import() */ 8).then(__webpack_require__.bind(null, /*! ../pages/register */ "./resources/js/pages/register.vue"));
+      return __webpack_require__.e(/*! import() */ 9).then(__webpack_require__.bind(null, /*! ../pages/register */ "./resources/js/pages/register.vue"));
     }
   }]
 }, {
@@ -80478,22 +80478,22 @@ var routes = [{
   children: [{
     path: "/dashboard/users",
     component: function component() {
-      return __webpack_require__.e(/*! import() */ 12).then(__webpack_require__.bind(null, /*! ../pages/users/index */ "./resources/js/pages/users/index.vue"));
+      return __webpack_require__.e(/*! import() */ 14).then(__webpack_require__.bind(null, /*! ../pages/users/index */ "./resources/js/pages/users/index.vue"));
     }
   }, {
-    path: "/dashboard/roles",
+    path: "/dashboard/profile",
     component: function component() {
-      return __webpack_require__.e(/*! import() */ 11).then(__webpack_require__.bind(null, /*! ../pages/roles/index */ "./resources/js/pages/roles/index.vue"));
-    }
-  }, {
-    path: "/dashboard/employees",
-    component: function component() {
-      return __webpack_require__.e(/*! import() */ 10).then(__webpack_require__.bind(null, /*! ../pages/employees/index */ "./resources/js/pages/employees/index.vue"));
+      return __webpack_require__.e(/*! import() */ 11).then(__webpack_require__.bind(null, /*! ../pages/profile/edit */ "./resources/js/pages/profile/edit.vue"));
     }
   }, {
     path: "/dashboard/timelogs",
     component: function component() {
       return __webpack_require__.e(/*! import() */ 13).then(__webpack_require__.bind(null, /*! ../pages/timelogs/index */ "./resources/js/pages/timelogs/index.vue"));
+    }
+  }, {
+    path: "/dashboard/my-machine",
+    component: function component() {
+      return __webpack_require__.e(/*! import() */ 2).then(__webpack_require__.bind(null, /*! ../pages/my-machine/create */ "./resources/js/pages/my-machine/create.vue"));
     }
   }]
 }, {
@@ -80507,12 +80507,17 @@ var routes = [{
   children: [{
     path: "/users/:id/edit",
     component: function component() {
-      return __webpack_require__.e(/*! import() */ 3).then(__webpack_require__.bind(null, /*! ../pages/users/edit */ "./resources/js/pages/users/edit.vue"));
+      return __webpack_require__.e(/*! import() */ 4).then(__webpack_require__.bind(null, /*! ../pages/users/edit */ "./resources/js/pages/users/edit.vue"));
     }
   }, {
     path: "/users/:id/delete",
     component: function component() {
-      return __webpack_require__.e(/*! import() */ 2).then(__webpack_require__.bind(null, /*! ../pages/users/delete */ "./resources/js/pages/users/delete.vue"));
+      return __webpack_require__.e(/*! import() */ 3).then(__webpack_require__.bind(null, /*! ../pages/users/delete */ "./resources/js/pages/users/delete.vue"));
+    }
+  }, {
+    path: "/users/:id/change-password",
+    component: function component() {
+      return __webpack_require__.e(/*! import() */ 12).then(__webpack_require__.bind(null, /*! ../pages/users/change-password */ "./resources/js/pages/users/change-password.vue"));
     }
   }]
 }, {
@@ -80526,17 +80531,17 @@ var routes = [{
   children: [{
     path: "/employees/create",
     component: function component() {
-      return Promise.all(/*! import() */[__webpack_require__.e(1), __webpack_require__.e(4)]).then(__webpack_require__.bind(null, /*! ../pages/employees/create */ "./resources/js/pages/employees/create.vue"));
+      return Promise.all(/*! import() */[__webpack_require__.e(1), __webpack_require__.e(5)]).then(__webpack_require__.bind(null, /*! ../pages/employees/create */ "./resources/js/pages/employees/create.vue"));
     }
   }, {
     path: "/employees/:id/edit",
     component: function component() {
-      return Promise.all(/*! import() */[__webpack_require__.e(1), __webpack_require__.e(6)]).then(__webpack_require__.bind(null, /*! ../pages/employees/edit */ "./resources/js/pages/employees/edit.vue"));
+      return Promise.all(/*! import() */[__webpack_require__.e(1), __webpack_require__.e(7)]).then(__webpack_require__.bind(null, /*! ../pages/employees/edit */ "./resources/js/pages/employees/edit.vue"));
     }
   }, {
     path: "/employees/:id/delete",
     component: function component() {
-      return Promise.all(/*! import() */[__webpack_require__.e(1), __webpack_require__.e(5)]).then(__webpack_require__.bind(null, /*! ../pages/employees/delete */ "./resources/js/pages/employees/delete.vue"));
+      return Promise.all(/*! import() */[__webpack_require__.e(1), __webpack_require__.e(6)]).then(__webpack_require__.bind(null, /*! ../pages/employees/delete */ "./resources/js/pages/employees/delete.vue"));
     }
   }]
 }];
@@ -80752,7 +80757,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _roles__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./roles */ "./resources/js/store/roles/index.js");
 /* harmony import */ var _company__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./company */ "./resources/js/store/company/index.js");
 /* harmony import */ var _employees__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./employees */ "./resources/js/store/employees/index.js");
-/* harmony import */ var vuex_persistedstate__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! vuex-persistedstate */ "./node_modules/vuex-persistedstate/dist/vuex-persistedstate.es.js");
+/* harmony import */ var _machines__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./machines */ "./resources/js/store/machines/index.js");
+/* harmony import */ var vuex_persistedstate__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! vuex-persistedstate */ "./node_modules/vuex-persistedstate/dist/vuex-persistedstate.es.js");
+
 
 
 
@@ -80762,15 +80769,128 @@ __webpack_require__.r(__webpack_exports__);
 
 vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__["default"]);
 var Store = new vuex__WEBPACK_IMPORTED_MODULE_1__["default"].Store({
-  plugins: [Object(vuex_persistedstate__WEBPACK_IMPORTED_MODULE_6__["default"])()],
+  plugins: [Object(vuex_persistedstate__WEBPACK_IMPORTED_MODULE_7__["default"])()],
   modules: {
     users: _users__WEBPACK_IMPORTED_MODULE_2__["default"],
     company: _company__WEBPACK_IMPORTED_MODULE_4__["default"],
     employees: _employees__WEBPACK_IMPORTED_MODULE_5__["default"],
-    roles: _roles__WEBPACK_IMPORTED_MODULE_3__["default"]
+    roles: _roles__WEBPACK_IMPORTED_MODULE_3__["default"],
+    machines: _machines__WEBPACK_IMPORTED_MODULE_6__["default"]
   }
 });
 /* harmony default export */ __webpack_exports__["default"] = (Store);
+
+/***/ }),
+
+/***/ "./resources/js/store/machines/actions.js":
+/*!************************************************!*\
+  !*** ./resources/js/store/machines/actions.js ***!
+  \************************************************/
+/*! exports provided: setMachine, setEmployeeId, setMACAddress */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "setMachine", function() { return setMachine; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "setEmployeeId", function() { return setEmployeeId; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "setMACAddress", function() { return setMACAddress; });
+var setMachine = function setMachine(_ref, payload) {
+  var commit = _ref.commit;
+  commit("setMachine", payload);
+};
+var setEmployeeId = function setEmployeeId(_ref2, payload) {
+  var commit = _ref2.commit;
+  commit("setEmployeeId", payload);
+};
+var setMACAddress = function setMACAddress(_ref3, payload) {
+  var commit = _ref3.commit;
+  commit("setMACAddress", payload);
+};
+
+/***/ }),
+
+/***/ "./resources/js/store/machines/getters.js":
+/*!************************************************!*\
+  !*** ./resources/js/store/machines/getters.js ***!
+  \************************************************/
+/*! exports provided: machine */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "machine", function() { return machine; });
+var machine = function machine(state) {
+  return state.machine;
+};
+
+/***/ }),
+
+/***/ "./resources/js/store/machines/index.js":
+/*!**********************************************!*\
+  !*** ./resources/js/store/machines/index.js ***!
+  \**********************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _state__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./state */ "./resources/js/store/machines/state.js");
+/* harmony import */ var _getters__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./getters */ "./resources/js/store/machines/getters.js");
+/* harmony import */ var _mutations__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./mutations */ "./resources/js/store/machines/mutations.js");
+/* harmony import */ var _actions__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./actions */ "./resources/js/store/machines/actions.js");
+
+
+
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  namespaced: true,
+  state: _state__WEBPACK_IMPORTED_MODULE_0__["default"],
+  getters: _getters__WEBPACK_IMPORTED_MODULE_1__,
+  mutations: _mutations__WEBPACK_IMPORTED_MODULE_2__,
+  actions: _actions__WEBPACK_IMPORTED_MODULE_3__
+});
+
+/***/ }),
+
+/***/ "./resources/js/store/machines/mutations.js":
+/*!**************************************************!*\
+  !*** ./resources/js/store/machines/mutations.js ***!
+  \**************************************************/
+/*! exports provided: setMachine, setEmployeeId, setMACAddress */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "setMachine", function() { return setMachine; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "setEmployeeId", function() { return setEmployeeId; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "setMACAddress", function() { return setMACAddress; });
+var setMachine = function setMachine(state, payload) {
+  state.machine = payload;
+};
+var setEmployeeId = function setEmployeeId(state, payload) {
+  state.machine.employee_id = payload;
+};
+var setMACAddress = function setMACAddress(state, payload) {
+  state.machine.MAC_Address = payload;
+};
+
+/***/ }),
+
+/***/ "./resources/js/store/machines/state.js":
+/*!**********************************************!*\
+  !*** ./resources/js/store/machines/state.js ***!
+  \**********************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = ({
+  machine: {
+    MAC_Address: null,
+    employee_id: null
+  }
+});
 
 /***/ }),
 

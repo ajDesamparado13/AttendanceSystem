@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class TimelogCreateRequest extends FormRequest
+class PasswordRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,7 +24,7 @@ class TimelogCreateRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'password' => 'required|confirmed|min:6',
         ];
     }
 }

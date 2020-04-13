@@ -1,41 +1,41 @@
 <?php
 
-namespace App\Http\Controllers\Api;
+namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use Prettus\Validator\Contracts\ValidatorInterface;
 use Prettus\Validator\Exceptions\ValidatorException;
-use App\Http\Requests\EmployeeCreateRequest;
-use App\Http\Requests\EmployeeUpdateRequest;
-use App\Repositories\EmployeeRepository;
-use App\Validators\EmployeeValidator;
+use App\Http\Requests\MachineCreateRequest;
+use App\Http\Requests\MachineUpdateRequest;
+use App\Repositories\MachineRepository;
+use App\Validators\MachineValidator;
 
 /**
- * Class EmployeesController.
+ * Class MachinesController.
  *
  * @package namespace App\Http\Controllers;
  */
-class EmployeesController extends Controller
+class MachinesController extends Controller
 {
     /**
-     * @var EmployeeRepository
+     * @var MachineRepository
      */
     protected $repository;
 
     /**
-     * @var EmployeeValidator
+     * @var MachineValidator
      */
     protected $validator;
 
     /**
-     * EmployeesController constructor.
+     * MachinesController constructor.
      *
-     * @param EmployeeRepository $repository
-     * @param EmployeeValidator $validator
+     * @param MachineRepository $repository
+     * @param MachineValidator $validator
      */
-    public function __construct(EmployeeRepository $repository, EmployeeValidator $validator)
+    public function __construct(MachineRepository $repository, MachineValidator $validator)
     {
         $this->repository = $repository;
         $this->validator  = $validator;
@@ -49,38 +49,38 @@ class EmployeesController extends Controller
     public function index()
     {
         $this->repository->pushCriteria(app('Prettus\Repository\Criteria\RequestCriteria'));
-        $employees = $this->repository->all();
+        $machines = $this->repository->all();
 
         if (request()->wantsJson()) {
 
             return response()->json([
-                'data' => $employees,
+                'data' => $machines,
             ]);
         }
 
-        return view('employees.index', compact('employees'));
+        return view('machines.index', compact('machines'));
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  EmployeeCreateRequest $request
+     * @param  MachineCreateRequest $request
      *
      * @return \Illuminate\Http\Response
      *
      * @throws \Prettus\Validator\Exceptions\ValidatorException
      */
-    public function store(EmployeeCreateRequest $request)
+    public function store(MachineCreateRequest $request)
     {
         try {
 
             $this->validator->with($request->all())->passesOrFail(ValidatorInterface::RULE_CREATE);
 
-            $employee = $this->repository->create($request->all());
+            $machine = $this->repository->create($request->all());
 
             $response = [
-                'message' => 'Employee created.',
-                'data'    => $employee->toArray(),
+                'message' => 'Machine created.',
+                'data'    => $machine->toArray(),
             ];
 
             if ($request->wantsJson()) {
@@ -110,16 +110,16 @@ class EmployeesController extends Controller
      */
     public function show($id)
     {
-        $employee = $this->repository->find($id);
+        $machine = $this->repository->find($id);
 
         if (request()->wantsJson()) {
 
             return response()->json([
-                'data' => $employee,
+                'data' => $machine,
             ]);
         }
 
-        return view('employees.show', compact('employee'));
+        return view('machines.show', compact('machine'));
     }
 
     /**
@@ -131,32 +131,32 @@ class EmployeesController extends Controller
      */
     public function edit($id)
     {
-        $employee = $this->repository->find($id);
+        $machine = $this->repository->find($id);
 
-        return view('employees.edit', compact('employee'));
+        return view('machines.edit', compact('machine'));
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  EmployeeUpdateRequest $request
+     * @param  MachineUpdateRequest $request
      * @param  string            $id
      *
      * @return Response
      *
      * @throws \Prettus\Validator\Exceptions\ValidatorException
      */
-    public function update(EmployeeUpdateRequest $request, $id)
+    public function update(MachineUpdateRequest $request, $id)
     {
         try {
 
             $this->validator->with($request->all())->passesOrFail(ValidatorInterface::RULE_UPDATE);
 
-            $employee = $this->repository->update($request->all(), $id);
+            $machine = $this->repository->update($request->all(), $id);
 
             $response = [
-                'message' => 'Employee updated.',
-                'data'    => $employee->toArray(),
+                'message' => 'Machine updated.',
+                'data'    => $machine->toArray(),
             ];
 
             if ($request->wantsJson()) {
@@ -194,11 +194,11 @@ class EmployeesController extends Controller
         if (request()->wantsJson()) {
 
             return response()->json([
-                'message' => 'Employee deleted.',
+                'message' => 'Machine deleted.',
                 'deleted' => $deleted,
             ]);
         }
 
-        return redirect()->back()->with('message', 'Employee deleted.');
+        return redirect()->back()->with('message', 'Machine deleted.');
     }
 }

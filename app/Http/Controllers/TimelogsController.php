@@ -2,15 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-
-use App\Http\Requests;
-use Prettus\Validator\Contracts\ValidatorInterface;
-use Prettus\Validator\Exceptions\ValidatorException;
 use App\Http\Requests\TimelogCreateRequest;
 use App\Http\Requests\TimelogUpdateRequest;
 use App\Repositories\TimelogRepository;
 use App\Validators\TimelogValidator;
+use Auth;
+use Illuminate\Http\Request;
+use Prettus\Validator\Contracts\ValidatorInterface;
+use Prettus\Validator\Exceptions\ValidatorException;
 
 /**
  * Class TimelogsController.
@@ -38,7 +37,7 @@ class TimelogsController extends Controller
     public function __construct(TimelogRepository $repository, TimelogValidator $validator)
     {
         $this->repository = $repository;
-        $this->validator  = $validator;
+        $this->validator = $validator;
     }
 
     /**
@@ -48,13 +47,20 @@ class TimelogsController extends Controller
      */
     public function index()
     {
+        $request = app()->make('request');
         $this->repository->pushCriteria(app('Prettus\Repository\Criteria\RequestCriteria'));
-        $timelogs = $this->repository->all();
+        $timelogs = $this->repository
+            ->orderBy('created_at', 'desc')
+            ->paginate($limit = $request->limit, $columns = ['*']);
+        $lastAction = $this->repository->where('causer_id', Auth::User()->id)
+            ->orderBy('created_at', 'desc')
+            ->first();
 
         if (request()->wantsJson()) {
 
             return response()->json([
                 'data' => $timelogs,
+                'lastAction' => $lastAction->action,
             ]);
         }
 
@@ -74,13 +80,15 @@ class TimelogsController extends Controller
     {
         try {
 
-            $this->validator->with($request->all())->passesOrFail(ValidatorInterface::RULE_CREATE);
-
-            $timelog = $this->repository->create($request->all());
+            $timelog = $this->repository->create([
+                'causer_type' => 'App\Entities\User',
+                'causer_id' => Auth::User()->id,
+                'action' => $request->action,
+            ]);
 
             $response = [
                 'message' => 'Timelog created.',
-                'data'    => $timelog->toArray(),
+                'data' => $timelog->toArray(),
             ];
 
             if ($request->wantsJson()) {
@@ -92,8 +100,8 @@ class TimelogsController extends Controller
         } catch (ValidatorException $e) {
             if ($request->wantsJson()) {
                 return response()->json([
-                    'error'   => true,
-                    'message' => $e->getMessageBag()
+                    'error' => true,
+                    'message' => $e->getMessageBag(),
                 ]);
             }
 
@@ -156,7 +164,7 @@ class TimelogsController extends Controller
 
             $response = [
                 'message' => 'Timelog updated.',
-                'data'    => $timelog->toArray(),
+                'data' => $timelog->toArray(),
             ];
 
             if ($request->wantsJson()) {
@@ -170,15 +178,14 @@ class TimelogsController extends Controller
             if ($request->wantsJson()) {
 
                 return response()->json([
-                    'error'   => true,
-                    'message' => $e->getMessageBag()
+                    'error' => true,
+                    'message' => $e->getMessageBag(),
                 ]);
             }
 
             return redirect()->back()->withErrors($e->getMessageBag())->withInput();
         }
     }
-
 
     /**
      * Remove the specified resource from storage.

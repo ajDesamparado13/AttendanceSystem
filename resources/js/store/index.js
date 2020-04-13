@@ -4,6 +4,7 @@ import users from "./users";
 import roles from "./roles";
 import company from "./company";
 import employees from "./employees";
+import machines from "./machines";
 import createPersistedState from "vuex-persistedstate";
 Vue.use(Vuex);
 
@@ -13,7 +14,8 @@ const Store = new Vuex.Store({
         users,
         company,
         employees,
-        roles
+        roles,
+        machines
     }
 });
 

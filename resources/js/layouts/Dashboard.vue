@@ -8,7 +8,7 @@
     </header>
     <b-container fluid>
       <b-row>
-        <b-col col lg="3">
+        <b-col col lg="3" style="margin-top: 20px;">
           <b-list-group>
             <b-list-group-item :to="v.path" v-for="(v, i) in menus" :key="i">{{ v.name }}</b-list-group-item>
           </b-list-group>

@@ -9,7 +9,7 @@
     <b-alert variant="success" :show="alertShow" dismissible>User deleted successfully.</b-alert>
     <b-table striped hover :items="users" small :fields="fields">
       <template v-slot:cell(action)="data">
-        <b-button variant="info" style="margin-bottom: 5px;" @click="edit(`${data.item.id}`)">Edit</b-button>
+        <b-button variant="info" style="margin-bottom: 5px; " @click="edit(`${data.item.id}`)">Edit</b-button>
         <b-button
           variant="danger"
           style="margin-bottom: 5px;"
@@ -69,10 +69,12 @@ export default {
           centered: true
         })
         .then(value => {
-          axios.delete(`users/${userId}`).then(res => {
-            app.getUsers();
-            app.alertShow = true;
-          });
+          if (value === true) {
+            axios.delete(`users/${userId}`).then(res => {
+              app.getUsers();
+              app.alertShow = true;
+            });
+          }
         })
         .catch(err => {
           // An error occurred
@@ -113,6 +115,9 @@ export default {
         .then(res => {
           this.users = _.values(res.data.data.data);
           this.rows = res.data.data.total;
+        })
+        .catch(err => {
+          this.$router.go(-1);
         });
     }
   },
