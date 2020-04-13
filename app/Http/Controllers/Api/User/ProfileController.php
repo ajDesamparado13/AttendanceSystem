@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api\User;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\PasswordRequest;
 use App\Http\Requests\ProfileUpdateRequest;
 use App\Repositories\EmployeeRepository;
 use App\Repositories\UserRepository;
@@ -44,5 +45,15 @@ class ProfileController extends Controller
 
             return response()->json($response);
         }
+    }
+
+    public function changePassword(PasswordRequest $request)
+    {
+        $user = $this->repository->where('id', Auth::User()->id)->first()->update([
+            'password' => $request->password,
+        ]);
+        return response()->json([
+            'success' => true,
+        ]);
     }
 }

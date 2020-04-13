@@ -13,7 +13,7 @@ class MenuTableSeeder extends Seeder
     public function run()
     {
         $menus = [
-            'Users', 'Profile', 'My Machine', 'Timelogs',
+            'Profile', 'Users', 'My Machine', 'Timelogs',
         ];
 
         foreach ($menus as $menu) {

@@ -5,7 +5,11 @@ const routes = [
         component: () => import("../layouts/Home"),
         children: [
             { path: "/login", component: () => import("../pages/login") },
-            { path: "/register", component: () => import("../pages/register") }
+            { path: "/register", component: () => import("../pages/register") },
+            {
+                path: "/forgot-password",
+                component: () => import("../pages/forgot-password")
+            }
         ]
     },
     {
@@ -25,6 +29,10 @@ const routes = [
             {
                 path: "/dashboard/profile",
                 component: () => import("../pages/profile/edit")
+            },
+            {
+                path: "/dashboard/profile/:id",
+                component: () => import("../pages/profile/change-password")
             },
             {
                 path: "/dashboard/timelogs",

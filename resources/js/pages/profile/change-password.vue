@@ -53,7 +53,7 @@ export default {
     },
     submit() {
       axios
-        .post(`change_password?id=${this.$route.params.id}`, {
+        .post(`profile_change_password`, {
           password: this.password,
           password_confirmation: this.confirmPassword
         })

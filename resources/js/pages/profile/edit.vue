@@ -4,6 +4,7 @@
     <b-alert variant="success" :show="alertShow" dismissible>Profile updated successfully.</b-alert>
     <form-generic ref="user" @success="success">
       <b-button variant="primary" type="submit" @click="update">Update</b-button>
+      <b-button variant="success" type="submit" @click="changePassword">Change Password</b-button>
     </form-generic>
   </div>
 </template>
@@ -25,6 +26,11 @@ export default {
     },
     update() {
       this.$refs.user.update();
+    },
+    changePassword() {
+      this.$router.push({
+        path: `/dashboard/profile/change-password`
+      });
     }
   }
 };
