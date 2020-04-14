@@ -80463,6 +80463,11 @@ var routes = [{
     component: function component() {
       return __webpack_require__.e(/*! import() */ 11).then(__webpack_require__.bind(null, /*! ../pages/forgot-password */ "./resources/js/pages/forgot-password.vue"));
     }
+  }, {
+    path: "/forgot-password/:token",
+    component: function component() {
+      return __webpack_require__.e(/*! import() */ 17).then(__webpack_require__.bind(null, /*! ../pages/new-password */ "./resources/js/pages/new-password.vue"));
+    }
   }]
 }, {
   path: "/user/:id",

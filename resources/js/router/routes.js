@@ -9,6 +9,10 @@ const routes = [
             {
                 path: "/forgot-password",
                 component: () => import("../pages/forgot-password")
+            },
+            {
+                path: "/forgot-password/:token",
+                component: () => import("../pages/new-password")
             }
         ]
     },
