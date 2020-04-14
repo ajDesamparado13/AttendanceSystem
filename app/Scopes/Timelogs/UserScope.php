@@ -21,7 +21,7 @@ class UserScope implements Scope
     {
         $roles = Auth::User()->roles->pluck('name')->values()->all();
         if (!in_array('Admin', $roles)) {
-            $builder->where('causer_id', Auth::User()->id);
+            $builder->where('causerable_id', Auth::User()->id);
         }
 
     }

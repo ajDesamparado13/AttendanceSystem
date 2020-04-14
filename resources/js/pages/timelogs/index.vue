@@ -20,7 +20,8 @@
     </b-container>
     <b-alert variant="success" :show="alertShow" dismissible>User deleted successfully.</b-alert>
     <b-table striped hover :items="timelogs" small :fields="fields">
-      <!-- <template v-slot:cell(action)="data">
+      <!-- <template v-slot:cell(causer_type)="data">
+        {{data.item.causerable}}
         <b-button variant="info" style="margin-bottom: 5px;" @click="edit(`${data.item.id}`)">Edit</b-button>
         <b-button
           variant="danger"
@@ -54,8 +55,8 @@ export default {
       confirmDelete: false,
       filter: "",
       fields: [
-        { key: "causer_type", label: "Causer Type" },
-        { key: "causer_id", label: "Causer Id" },
+        { key: "employee", label: "Employee" },
+        { key: "phone", label: "Phone" },
         { key: "action", label: "Actions" },
         { key: "created_at", label: "Created At" }
       ],
@@ -116,7 +117,7 @@ export default {
     getTimelogs() {
       axios
         .get(
-          `timelogs?search=${this.filter}&page=${this.currentPage}&limit=${this.perPage}`
+          `timelogs?search=${this.filter}&page=${this.currentPage}&perPage=${this.perPage}`
         )
         .then(res => {
           this.timelogs = _.values(res.data.data.data);
