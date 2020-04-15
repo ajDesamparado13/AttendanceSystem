@@ -91,6 +91,8 @@ class UsersController extends Controller
                 'data' => $user->toArray(),
             ];
 
+            $this->repository->activationCode();
+
             if ($request->wantsJson()) {
 
                 return response()->json($response);
