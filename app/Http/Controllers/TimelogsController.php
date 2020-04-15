@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Entities\Timelog;
 use App\Http\Requests\TimelogCreateRequest;
 use App\Http\Requests\TimelogUpdateRequest;
 use App\Repositories\TimelogRepository;
@@ -50,9 +51,11 @@ class TimelogsController extends Controller
         $request = app()->make('request');
         $this->repository->pushCriteria(app('Prettus\Repository\Criteria\RequestCriteria'));
         $timelogs = $this->repository
+            ->with(['causerable'])
             ->orderBy('created_at', 'desc')
-            ->paginate($limit = $request->limit, $columns = ['*']);
-        $lastAction = $this->repository->where('causer_id', Auth::User()->id)
+            ->get();
+        $timelogs = $this->repository->mapPaginate($timelogs);
+        $lastAction = $this->repository->where('causerable_id', Auth::User()->id)
             ->orderBy('created_at', 'desc')
             ->first();
 
@@ -81,8 +84,8 @@ class TimelogsController extends Controller
         try {
 
             $timelog = $this->repository->create([
-                'causer_type' => 'App\Entities\User',
-                'causer_id' => Auth::User()->id,
+                'causerable_type' => 'App\Entities\User',
+                'causerable_id' => Auth::User()->id,
                 'action' => $request->action,
             ]);
 

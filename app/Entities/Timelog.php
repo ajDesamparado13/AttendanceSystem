@@ -24,7 +24,7 @@ class Timelog extends Model implements Transformable
      */
     protected $table = 'timelogs';
     protected $fillable = [
-        'causer_type', 'causer_id', 'action',
+        'causerable_type', 'causerable_id', 'action',
     ];
 
     protected static function boot()
@@ -38,4 +38,10 @@ class Timelog extends Model implements Transformable
 
         return Carbon::parse($val)->toDayDateTimeString();
     }
+
+    public function causerable()
+    {
+        return $this->morphTo();
+    }
+
 }

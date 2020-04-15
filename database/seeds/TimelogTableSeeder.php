@@ -13,10 +13,10 @@ class TimelogTableSeeder extends Seeder
     public function run()
     {
 
-        for ($i = 0; $i < 10; $i++) {
+        for ($i = 0; $i < 5; $i++) {
             Timelog::create([
-                'causer_type' => 'App\Entities\User',
-                'causer_id' => $i + 1,
+                'causerable_type' => 'App\Entities\User',
+                'causerable_id' => $i + 1,
                 'action' => 'time-in',
             ]);
         }

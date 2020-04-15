@@ -7,8 +7,16 @@ const routes = [
             { path: "/login", component: () => import("../pages/login") },
             { path: "/register", component: () => import("../pages/register") },
             {
+                path: "/register/:token",
+                component: () => import("../pages/email-activation")
+            },
+            {
                 path: "/forgot-password",
                 component: () => import("../pages/forgot-password")
+            },
+            {
+                path: "/forgot-password/:token",
+                component: () => import("../pages/new-password")
             }
         ]
     },

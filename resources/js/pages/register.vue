@@ -21,7 +21,10 @@
           ></b-input>
           <br />
           <b-button variant="secondary" to="/">Cancel</b-button>
-          <b-button type="submit" variant="primary">Register</b-button>
+          <b-button type="submit" variant="primary">
+            <b-spinner small v-if="loader"></b-spinner>&nbsp;
+            Register
+          </b-button>
           <br />
         </b-form>
       </b-col>
@@ -33,6 +36,7 @@ import { mapActions } from "vuex";
 export default {
   data() {
     return {
+      loader: false,
       variant: "danger",
       error: false,
       errorMessage: null,
@@ -44,19 +48,23 @@ export default {
     ...mapActions("users", ["setToken", "setUser"]),
     onSubmit(evt) {
       evt.preventDefault();
+      this.loader = true;
       axios
         .post("add_user", {
           email: this.email,
           password: this.password
         })
         .then(res => {
+          this.loader = false;
           this.email = "";
           this.password = "";
           this.variant = "success";
-          this.errorMessage = "You have successfully registered.";
+          this.errorMessage =
+            "You have successfully registered. Please check your email to activate your account.";
           this.error = true;
         })
         .catch(err => {
+          this.loader = false;
           this.error = true;
           this.variant = "danger";
           this.errorMessage = "Email address is already taken.";
