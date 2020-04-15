@@ -4,6 +4,7 @@ use App\Entities\Employee;
 use App\Entities\Menu;
 use App\Entities\Role;
 use App\Entities\User;
+use Carbon\Carbon;
 use Illuminate\Database\Seeder;
 
 class UserTableSeeder extends Seeder
@@ -18,6 +19,7 @@ class UserTableSeeder extends Seeder
         $faker = Faker\Factory::create();
         $user = User::create([
             'email' => 'admin@admin.com',
+            'email_verified_at' => Carbon::now()->toDateTimeString(),
             'password' => Hash::make('password'),
         ]);
 
@@ -36,6 +38,7 @@ class UserTableSeeder extends Seeder
 
         $user = User::create([
             'email' => 'bobby.gerez@yahoo.com',
+            'email_verified_at' => Carbon::now()->toDateTimeString(),
             'password' => Hash::make('password'),
         ]);
 

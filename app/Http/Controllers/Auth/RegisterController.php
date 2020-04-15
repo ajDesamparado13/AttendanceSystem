@@ -74,10 +74,10 @@ class RegisterController extends Controller
 
     public function activateUser($token)
     {
-        $user = User::where('activation_code', $token)->first();
-        if ($user) {
+        $user = User::where('activation_code', $token);
+        if ($user->first()) {
             $user->update([
-                'email_verified_at' => Carbon::now(),
+                'email_verified_at' => Carbon::now()->toDateTimeString(),
             ]);
             return response()->json([
                 'success' => true,
