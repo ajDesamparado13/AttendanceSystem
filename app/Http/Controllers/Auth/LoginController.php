@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers\Auth;
 
-use App\Http\Controllers\Controller;
 use App\Entities\User;
+use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use Auth;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
@@ -44,10 +44,15 @@ class LoginController extends Controller
     public function login(Request $request)
     {
         if (Auth::attempt(['email' => request('email'), 'password' => request('password')])) {
-            return $this->success('email', $request->email);
+            $user = Auth::user();
+            if ($user->email_verified_at !== null) {
+                return $this->success('email', $request->email);
+            } else {
+                return response()->json(['error' => 'Please verify your email.'], 401);
+            }
+
         } else {
             return response()->json(['error' => 'Invalid Username or Password.'], 401);
-            return 'asdf';
         }
     }
 
