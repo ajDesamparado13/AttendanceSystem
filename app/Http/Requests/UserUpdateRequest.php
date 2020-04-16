@@ -2,10 +2,12 @@
 
 namespace App\Http\Requests;
 
+use App\Traits\Obfuscate\Optimuss;
 use Illuminate\Foundation\Http\FormRequest;
 
 class UserUpdateRequest extends FormRequest
 {
+    use Optimuss;
     /**
      * Determine if the user is authorized to make this request.
      *
@@ -24,7 +26,7 @@ class UserUpdateRequest extends FormRequest
     public function rules()
     {
         return [
-            'email' => 'unique:users,email,' . $this->get('id'),
+            'email' => 'unique:users,email,' . $this->removeStringDecode($this->get('id')),
         ];
     }
 }

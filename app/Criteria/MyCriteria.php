@@ -24,4 +24,5 @@ class MyCriteria implements CriteriaInterface
     {
         return $model;
     }
+
 }

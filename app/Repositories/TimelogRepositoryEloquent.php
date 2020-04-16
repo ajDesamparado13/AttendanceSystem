@@ -4,8 +4,9 @@ namespace App\Repositories;
 
 use App\Entities\Timelog;
 use App\Repositories\TimelogRepository;
+use App\Traits\Repo;
 use App\Validators\TimelogValidator;
-use Illuminate\Pagination\LengthAwarePaginator;
+use Auth;
 use Prettus\Repository\Criteria\RequestCriteria;
 use Prettus\Repository\Eloquent\BaseRepository;
 
@@ -16,6 +17,7 @@ use Prettus\Repository\Eloquent\BaseRepository;
  */
 class TimelogRepositoryEloquent extends BaseRepository implements TimelogRepository
 {
+    use Repo;
 
     protected $fieldSearchable = [
         'causer_id' => 'like',
@@ -50,28 +52,30 @@ class TimelogRepositoryEloquent extends BaseRepository implements TimelogReposit
         $this->pushCriteria(app(RequestCriteria::class));
     }
 
-    public function lengthAwarePaginate($collection)
+    public function lastAction()
     {
-        if ($collection !== null) {
-            $request = app()->make('request');
-            $perPage = $request->perPage === '0' ? $collection->count() : $request->perPage;
-
-            return new LengthAwarePaginator($collection->forPage($request->page, $perPage), $collection->count(), $perPage, $request->page);
-        }
+        return $this->where('causerable_id', Auth::User()->id)
+            ->orderBy('created_at', 'desc')
+            ->first()
+            ->action;
     }
 
-    public function mapPaginate($collection)
+    public function mapPaginate()
     {
-        $collection = $collection->map(function ($v) {
-            return [
-                'action' => $v->action,
-                'employee' => $v->causerable['employeeName'],
-                'phone' => $v->causerable['employee']['phone'],
-                'created_at' => $v->created_at,
-            ];
-        });
 
-        return $this->lengthAwarePaginate($collection);
+        $timelogs = $this->with(['causerable'])
+            ->orderBy('created_at', 'desc')
+            ->get()
+            ->map(function ($v) {
+                return [
+                    'action' => $v->action,
+                    'employee' => $v->causerable['employeeName'],
+                    'phone' => $v->causerable['employee']['phone'],
+                    'created_at' => $v->created_at,
+                ];
+            });
+
+        return $this->lengthAwarePaginate($timelogs);
     }
 
 }

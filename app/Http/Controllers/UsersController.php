@@ -8,6 +8,7 @@ use App\Http\Requests\UserCreateRequest;
 use App\Http\Requests\UserUpdateRequest;
 use App\Repositories\EmployeeRepository;
 use App\Repositories\UserRepository;
+use App\Traits\Obfuscate\Optimuss;
 use App\Validators\UserValidator;
 use Illuminate\Http\Request;
 use Prettus\Validator\Exceptions\ValidatorException;
@@ -19,6 +20,7 @@ use Prettus\Validator\Exceptions\ValidatorException;
  */
 class UsersController extends Controller
 {
+    use Optimuss;
     /**
      * @var UserRepository
      */
@@ -51,18 +53,13 @@ class UsersController extends Controller
     {
         $this->authorize('index', User::class);
         $request = app()->make('request');
-        $this->repository->pushCriteria(app('Prettus\Repository\Criteria\RequestCriteria'));
+
         $users = $this->repository->with(['employee'])
             ->paginate($limit = $request->limit, $columns = ['*']);
 
-        if (request()->wantsJson()) {
-
-            return response()->json([
-                'data' => $users,
-            ]);
-        }
-
-        return view('users.index', compact('users'));
+        return response()->json([
+            'data' => $users,
+        ]);
     }
 
     /**
@@ -143,7 +140,7 @@ class UsersController extends Controller
     {
 
         $this->authorize('index', User::class);
-        $user = $this->repository->where('id', $id)->with(['roles'])->first();
+        $user = $this->repository->where('id', $this->removeStringDecode($id))->with(['roles'])->first();
         if (request()->wantsJson()) {
 
             return response()->json([
@@ -170,12 +167,12 @@ class UsersController extends Controller
         $this->authorize('index', User::class);
         try {
 
-            $user = $this->repository->update($request->all(), $id);
+            $user = $this->repository->update($request->all(), $this->removeStringDecode($id));
             $employee = $this->employee->where('user_id', $user->id)->update([
                 'firstname' => $request->employee['firstname'],
                 'lastname' => $request->employee['lastname'],
             ]);
-            $user = $this->repository->where('id', $id)->first();
+            $user = $this->repository->where('id', $this->removeStringDecode($id))->first();
             $user->roles()->sync($request->roleIds);
 
             $response = [
@@ -213,7 +210,7 @@ class UsersController extends Controller
     public function destroy($id)
     {
         $this->authorize('index', User::class);
-        $deleted = $this->repository->delete($id);
+        $deleted = $this->repository->delete($this->removeStringDecode($id));
 
         if (request()->wantsJson()) {
 
