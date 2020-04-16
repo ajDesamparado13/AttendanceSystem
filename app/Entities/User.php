@@ -2,6 +2,7 @@
 
 namespace App\Entities;
 
+use App\Traits\Obfuscate\Optimuss;
 use Hash;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -11,7 +12,7 @@ use Prettus\Repository\Traits\TransformableTrait;
 
 class User extends Authenticatable implements Transformable
 {
-    use HasApiTokens, Notifiable, TransformableTrait;
+    use HasApiTokens, Notifiable, TransformableTrait, Optimuss;
 
     /**
      * The attributes that are mass assignable.
@@ -41,6 +42,7 @@ class User extends Authenticatable implements Transformable
     ];
 
     protected $appends = [
+        'optimus_id',
         'employeeName',
     ];
 
