@@ -56,7 +56,8 @@ class TimelogRepositoryEloquent extends BaseRepository implements TimelogReposit
     {
         return $this->where('causerable_id', Auth::User()->id)
             ->orderBy('created_at', 'desc')
-            ->first();
+            ->first()
+            ->action;
     }
 
     public function mapPaginate()
