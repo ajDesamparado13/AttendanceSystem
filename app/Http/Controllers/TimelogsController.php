@@ -48,26 +48,11 @@ class TimelogsController extends Controller
      */
     public function index()
     {
-        $request = app()->make('request');
-        $this->repository->pushCriteria(app('Prettus\Repository\Criteria\RequestCriteria'));
-        $timelogs = $this->repository
-            ->with(['causerable'])
-            ->orderBy('created_at', 'desc')
-            ->get();
-        $timelogs = $this->repository->mapPaginate($timelogs);
-        $lastAction = $this->repository->where('causerable_id', Auth::User()->id)
-            ->orderBy('created_at', 'desc')
-            ->first();
+        return response()->json([
+            'data' => $this->repository->mapPaginate(),
+            'lastAction' => $this->repository->lastAction(),
+        ]);
 
-        if (request()->wantsJson()) {
-
-            return response()->json([
-                'data' => $timelogs,
-                'lastAction' => $lastAction->action,
-            ]);
-        }
-
-        return view('timelogs.index', compact('timelogs'));
     }
 
     /**

@@ -80446,32 +80446,32 @@ var routes = [{
   path: "/",
   name: "home",
   component: function component() {
-    return __webpack_require__.e(/*! import() */ 15).then(__webpack_require__.bind(null, /*! ../layouts/Home */ "./resources/js/layouts/Home.vue"));
+    return __webpack_require__.e(/*! import() */ 16).then(__webpack_require__.bind(null, /*! ../layouts/Home */ "./resources/js/layouts/Home.vue"));
   },
   children: [{
     path: "/login",
     component: function component() {
-      return __webpack_require__.e(/*! import() */ 12).then(__webpack_require__.bind(null, /*! ../pages/login */ "./resources/js/pages/login.vue"));
+      return __webpack_require__.e(/*! import() */ 13).then(__webpack_require__.bind(null, /*! ../pages/login */ "./resources/js/pages/login.vue"));
     }
   }, {
     path: "/register",
     component: function component() {
-      return __webpack_require__.e(/*! import() */ 14).then(__webpack_require__.bind(null, /*! ../pages/register */ "./resources/js/pages/register.vue"));
+      return __webpack_require__.e(/*! import() */ 15).then(__webpack_require__.bind(null, /*! ../pages/register */ "./resources/js/pages/register.vue"));
     }
   }, {
     path: "/register/:token",
     component: function component() {
-      return __webpack_require__.e(/*! import() */ 18).then(__webpack_require__.bind(null, /*! ../pages/email-activation */ "./resources/js/pages/email-activation.vue"));
+      return __webpack_require__.e(/*! import() */ 11).then(__webpack_require__.bind(null, /*! ../pages/email-activation */ "./resources/js/pages/email-activation.vue"));
     }
   }, {
     path: "/forgot-password",
     component: function component() {
-      return __webpack_require__.e(/*! import() */ 11).then(__webpack_require__.bind(null, /*! ../pages/forgot-password */ "./resources/js/pages/forgot-password.vue"));
+      return __webpack_require__.e(/*! import() */ 12).then(__webpack_require__.bind(null, /*! ../pages/forgot-password */ "./resources/js/pages/forgot-password.vue"));
     }
   }, {
     path: "/forgot-password/:token",
     component: function component() {
-      return __webpack_require__.e(/*! import() */ 13).then(__webpack_require__.bind(null, /*! ../pages/new-password */ "./resources/js/pages/new-password.vue"));
+      return __webpack_require__.e(/*! import() */ 14).then(__webpack_require__.bind(null, /*! ../pages/new-password */ "./resources/js/pages/new-password.vue"));
     }
   }]
 }, {
@@ -80493,27 +80493,27 @@ var routes = [{
   children: [{
     path: "/dashboard/users",
     component: function component() {
-      return __webpack_require__.e(/*! import() */ 17).then(__webpack_require__.bind(null, /*! ../pages/users/index */ "./resources/js/pages/users/index.vue"));
+      return __webpack_require__.e(/*! import() */ 18).then(__webpack_require__.bind(null, /*! ../pages/users/index */ "./resources/js/pages/users/index.vue"));
     }
   }, {
     path: "/dashboard/profile",
     component: function component() {
-      return __webpack_require__.e(/*! import() */ 4).then(__webpack_require__.bind(null, /*! ../pages/profile/edit */ "./resources/js/pages/profile/edit.vue"));
+      return __webpack_require__.e(/*! import() */ 2).then(__webpack_require__.bind(null, /*! ../pages/profile/edit */ "./resources/js/pages/profile/edit.vue"));
     }
   }, {
     path: "/dashboard/profile/:id",
     component: function component() {
-      return __webpack_require__.e(/*! import() */ 3).then(__webpack_require__.bind(null, /*! ../pages/profile/change-password */ "./resources/js/pages/profile/change-password.vue"));
+      return __webpack_require__.e(/*! import() */ 4).then(__webpack_require__.bind(null, /*! ../pages/profile/change-password */ "./resources/js/pages/profile/change-password.vue"));
     }
   }, {
     path: "/dashboard/timelogs",
     component: function component() {
-      return __webpack_require__.e(/*! import() */ 16).then(__webpack_require__.bind(null, /*! ../pages/timelogs/index */ "./resources/js/pages/timelogs/index.vue"));
+      return __webpack_require__.e(/*! import() */ 17).then(__webpack_require__.bind(null, /*! ../pages/timelogs/index */ "./resources/js/pages/timelogs/index.vue"));
     }
   }, {
     path: "/dashboard/my-machine",
     component: function component() {
-      return __webpack_require__.e(/*! import() */ 2).then(__webpack_require__.bind(null, /*! ../pages/my-machine/create */ "./resources/js/pages/my-machine/create.vue"));
+      return __webpack_require__.e(/*! import() */ 3).then(__webpack_require__.bind(null, /*! ../pages/my-machine/create */ "./resources/js/pages/my-machine/create.vue"));
     }
   }]
 }, {

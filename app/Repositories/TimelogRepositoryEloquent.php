@@ -5,6 +5,7 @@ namespace App\Repositories;
 use App\Entities\Timelog;
 use App\Repositories\TimelogRepository;
 use App\Validators\TimelogValidator;
+use Auth;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Prettus\Repository\Criteria\RequestCriteria;
 use Prettus\Repository\Eloquent\BaseRepository;
@@ -50,6 +51,13 @@ class TimelogRepositoryEloquent extends BaseRepository implements TimelogReposit
         $this->pushCriteria(app(RequestCriteria::class));
     }
 
+    public function lastAction()
+    {
+        return $this->where('causerable_id', Auth::User()->id)
+            ->orderBy('created_at', 'desc')
+            ->first();
+    }
+
     public function lengthAwarePaginate($collection)
     {
         if ($collection !== null) {
@@ -60,18 +68,22 @@ class TimelogRepositoryEloquent extends BaseRepository implements TimelogReposit
         }
     }
 
-    public function mapPaginate($collection)
+    public function mapPaginate()
     {
-        $collection = $collection->map(function ($v) {
-            return [
-                'action' => $v->action,
-                'employee' => $v->causerable['employeeName'],
-                'phone' => $v->causerable['employee']['phone'],
-                'created_at' => $v->created_at,
-            ];
-        });
 
-        return $this->lengthAwarePaginate($collection);
+        $timelogs = $this->with(['causerable'])
+            ->orderBy('created_at', 'desc')
+            ->get()
+            ->map(function ($v) {
+                return [
+                    'action' => $v->action,
+                    'employee' => $v->causerable['employeeName'],
+                    'phone' => $v->causerable['employee']['phone'],
+                    'created_at' => $v->created_at,
+                ];
+            });
+
+        return $this->lengthAwarePaginate($timelogs);
     }
 
 }
